@@ -15,12 +15,12 @@ interface YACSService {
     @GET("courses.json?search={query}") // <100ms response time
     Call<Course> courseSearch(@Path("query") String query);
 
-    @GET("/schools.json?show_departments") // <50ms response time
+    @GET("/schools.json?show_departments=true") // <50ms response time
     Call<School> loadDepartments();
 
-    @GET("/courses.json") // <300ms response time
-    Call<Course> loadCourses();
+    @GET("/courses.json?department_id={department_id}") // <100ms response time
+    Call<Course> loadCoursesByDepartment(@Path("department_id") String department_id);
 
-    @GET("/sections.json?course_id={course_id}&show_periods") // <30ms response time
-    Call<Section> loadCourse(@Path("course_id") String course_id);
+    @GET("/sections.json?course_id={course_id}&show_periods=true") // <30ms response time
+    Call<Section> loadCourseSections(@Path("course_id") String course_id);
 }

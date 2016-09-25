@@ -1,5 +1,9 @@
 package edu.rpi.cs.yacs.retrofit;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
@@ -23,12 +27,20 @@ class ServiceHelper {
     @interface Json {
     }
 
-    private static ServiceHelper instance = new ServiceHelper();
     private YACSService service;
+    private Activity activity;
 
-    private ServiceHelper() {
+    private ServiceHelper(Activity activity) {
+        this.activity = activity;
+
+        SharedPreferences preferences = activity.getSharedPreferences("API", Context.MODE_PRIVATE);
+
+        // If exists, return value
+        // Otherwise, set to RPI YACS base url
+        String baseURL = preferences.getString("BASE_URL", "https://yacs.cs.rpi.edu/api/v5/");
+
         Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://yacs.cs.rpi.edu/api/v5/")
+            .baseUrl(baseURL)
             .addConverterFactory(new JsonStringConverterFactory(GsonConverterFactory.create()))
             .build();
 
@@ -38,8 +50,26 @@ class ServiceHelper {
     public YACSService getService() {
         return service;
     }
-}
 
+    // Used when we need to invalidate the old service
+    // Replaces old service with new service that uses the latest "House of YAX" setting.
+    public YACSService invalidateService() {
+        SharedPreferences preferences = activity.getSharedPreferences("API", Context.MODE_PRIVATE);
+
+        // If exists, return value
+        // Otherwise, set to RPI YACS base url
+        String baseURL = preferences.getString("BASE_URL", "https://yacs.cs.rpi.edu/api/v5/");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .addConverterFactory(new JsonStringConverterFactory(GsonConverterFactory.create()))
+                .build();
+
+        service = retrofit.create(YACSService.class);
+
+        return service;
+    }
+}
 
 class JsonStringConverterFactory extends Converter.Factory {
     private final Converter.Factory delegateFactory;
@@ -52,9 +82,6 @@ class JsonStringConverterFactory extends Converter.Factory {
                                                           Retrofit retrofit) {
         for (Annotation annotation : annotations) {
             if (annotation instanceof ServiceHelper.Json) {
-                // NOTE: If you also have a JSON converter factory installed in addition to this factory,
-                // you can call retrofit.requestBodyConverter(type, annotations) instead of having a
-                // reference to it explicitly as a field.
                 Converter<?, RequestBody> delegate =
                         delegateFactory.requestBodyConverter(type, annotations, new Annotation[0], retrofit);
                 return new DelegateToStringConverter<>(delegate);
