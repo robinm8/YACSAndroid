@@ -1,5 +1,4 @@
 <resources>
-
     <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar"/>
 
     <style name="AppTheme" parent="AppBaseTheme">
@@ -7,12 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-
-    </style>
-
-    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>
