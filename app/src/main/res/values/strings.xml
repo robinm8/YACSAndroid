@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">YACS</string>
+
+    <string name="settings_activity_title">Preferences</string>
+    <string name="houseOfYACS">House of YACS</string>
+    <string name="Select">Select</string>
 </resources>

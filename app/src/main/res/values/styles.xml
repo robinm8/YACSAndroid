@@ -29,8 +29,12 @@
         <item name="windowNoTitle">true</item>
         <item name="android:textViewStyle">@style/OverlayShadow</item>
         <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
-
         <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="AppTheme.SettingsActivity">
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/black</item>
     </style>
 
     <style name="OverlayShadow">
@@ -39,7 +43,6 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">7</item>
     </style>
-
     <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
     </style>

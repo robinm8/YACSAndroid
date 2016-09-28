@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.jenzz.materialpreference.PreferenceCategory xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="General">
+
+    <com.jenzz.materialpreference.Preference
+        android:persistent="true"
+        android:key="@string/houseOfYACS"
+        android:title="@string/houseOfYACS"/>
+
+    </com.jenzz.materialpreference.PreferenceCategory>
+
+</PreferenceScreen>

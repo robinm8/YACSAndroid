@@ -25,6 +25,12 @@
             android:theme="@style/AppTheme.MainActivity" />
 
         <activity
+            android:name=".core.SettingsActivity"
+            android:label="@string/settings_activity_title"
+            android:theme="@style/AppTheme.SettingsActivity">
+        </activity>
+
+        <activity
             android:name=".core.IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
