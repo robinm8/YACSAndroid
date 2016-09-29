@@ -1,16 +1,26 @@
 package edu.rpi.cs.yacs.core;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
@@ -22,6 +32,8 @@ import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 public class MainActivity extends AppCompatActivity {
 
     private MaterialViewPager mViewPager;
+    private Drawer mDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
 
     @Override
@@ -52,6 +64,64 @@ public class MainActivity extends AppCompatActivity {
                 actionBar.setHomeButtonEnabled(true);
             }
         }
+
+        mDrawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withActionBarDrawerToggleAnimated(true)
+                .withActionBarDrawerToggle(true)
+                .addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.drawer_item_home)
+                                .withIcon(FontAwesome.Icon.faw_home).withIdentifier(4)
+                )
+                .addStickyDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.drawer_item_settings)
+                                .withIcon(FontAwesome.Icon.faw_cog)
+                                .withIdentifier(1)
+                                .withSelectable(false),
+                        new PrimaryDrawerItem()
+                                .withName(R.string.drawer_item_open_source)
+                                .withIcon(FontAwesome.Icon.faw_github)
+                                .withIdentifier(2)
+                                .withSelectable(false)
+//                        new PrimaryDrawerItem()
+//                                .withName(R.string.drawer_item_feedback)
+//                                .withIcon(FontAwesome.Icon.faw_question_circle)
+//                                .withIdentifier(3)
+//                                .withSelectable(false)
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem != null) {
+                            Intent intent = null;
+
+                            if (drawerItem.getIdentifier() == 1) {
+                                // TODO: Make Settings Activity
+                            }else if (drawerItem.getIdentifier() == 2) {
+                                intent = new LibsBuilder()
+                                        .withFields(R.string.class.getFields())
+                                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                        .intent(MainActivity.this);
+                            }else if (drawerItem.getIdentifier() == 3) {
+//                                 TODO: Make Feedback Dialog
+                            }
+                            if (intent != null) {
+                                startActivity(intent);
+
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                })
+                .withShowDrawerOnFirstLaunch(true)
+                .build();
+
+
+        mDrawerToggle = mDrawer.getActionBarDrawerToggle();
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
@@ -105,5 +175,20 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer != null && mDrawer.isDrawerOpen()) {
+            mDrawer.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

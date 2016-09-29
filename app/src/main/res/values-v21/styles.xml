@@ -9,6 +9,7 @@
 
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:windowContentOverlay">@null</item>
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -25,9 +26,24 @@
         <item name="windowNoTitle">true</item>
 
         <item name="android:textViewStyle">@style/OverlayShadow</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
 
         <item name="android:windowTranslucentStatus" tools:targetApi="21">true</item>
+
+        <!-- MaterialDrawer specific values -->
+        <item name="material_drawer_background">@color/background</item>
+        <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_dark_secondary_text
+        </item>
+        <item name="material_drawer_hint_text">@color/material_drawer_dark_hint_text</item>
+        <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
+        <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
+        <item name="material_drawer_selected_text">#F1433C</item>
+        <item name="material_drawer_header_selection_text">
+            @color/material_drawer_dark_primary_text
+        </item>
+
         <item name="windowActionModeOverlay">true</item>
     </style>
 
