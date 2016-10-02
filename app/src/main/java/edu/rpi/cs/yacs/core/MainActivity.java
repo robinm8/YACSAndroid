@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = null;
 
                             if (drawerItem.getIdentifier() == 1) {
-                                // TODO: Make Settings Activity
+                                intent = new Intent(activity, SettingsActivity.class);
                             }else if (drawerItem.getIdentifier() == 2) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if (intent != null) {
                                 startActivity(intent);
-
                                 return true;
                             }
                         }
