@@ -29,11 +29,11 @@ interface YACSService {
 
     /**
      * This method fetches all courses of a given department.
-     * @param department_id department id to fetch courses
-     * @return Relevant Course objects of department_id
+     * @param department_code department code to fetch courses
+     * @return Relevant Course objects of department_code
      */
-    @GET("/courses.json?department_id={department_id}")
-    Call<Course> loadCoursesByDepartment(@Path("department_id") int department_id);
+    @GET("/courses.json?department_code={department_code}")
+    Call<Course> loadCoursesByDepartment(@Path("department_code") String department_code);
 
     /**
      * This method fetches all sections and periods of a given course.
