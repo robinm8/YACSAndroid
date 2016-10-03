@@ -10,6 +10,7 @@ public class Section {
     private int id = 0, crn = 0, seats = 0, seats_taken = 0, num_periods = 0, course_id = 0;
     private String name;
     private ArrayList<String> instructors;
+    private ArrayList<Period> periods;
 
     public int getId() {
         return id;
@@ -73,5 +74,13 @@ public class Section {
 
     public void setInstructors(ArrayList<String> instructors) {
         this.instructors = instructors;
+    }
+
+    public ArrayList<Period> getPeriods() {
+        return periods;
+    }
+
+    public void setPeriods(ArrayList<Period> periods) {
+        this.periods = periods;
     }
 }
