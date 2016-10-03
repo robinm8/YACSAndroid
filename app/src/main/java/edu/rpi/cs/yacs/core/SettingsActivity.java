@@ -20,8 +20,10 @@ public class SettingsActivity extends PreferenceActivity {
 
     public static class SettingsFragment extends PreferenceFragment {
 
+        SharedPreferences sp = null;
+
         @Override
-        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, final Preference preference) {
+        public boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference) {
             if (preference.getKey().equals(getString(R.string.houseOfYACS))) {
                 new MaterialDialog.Builder(getActivity())
                         .title(R.string.houseOfYACS)
@@ -31,6 +33,8 @@ public class SettingsActivity extends PreferenceActivity {
                             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                                 preference.setSummary(text);
                                 preference.setDefaultValue(text);
+
+                                sp.edit().putString(getString(R.string.houseOfYACS), String.valueOf(text)).apply();
                                 return true;
                             }
                         })
@@ -47,10 +51,10 @@ public class SettingsActivity extends PreferenceActivity {
 
             addPreferencesFromResource(R.xml.prefs);
 
-            SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
+            sp = getPreferenceScreen().getSharedPreferences();
 
             Preference houseYACS = findPreference("House of YACS");
-            houseYACS.setSummary(sp.getString(getString(R.string.houseOfYACS), "Rensselaer Polytechnic Institute"));
+            houseYACS.setSummary(sp.getString(getString(R.string.houseOfYACS), ""));
         }
     }
 
