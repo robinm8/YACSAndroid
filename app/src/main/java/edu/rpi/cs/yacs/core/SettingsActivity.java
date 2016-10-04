@@ -54,7 +54,7 @@ public class SettingsActivity extends PreferenceActivity {
             sp = getPreferenceScreen().getSharedPreferences();
 
             Preference houseYACS = findPreference("House of YACS");
-            houseYACS.setSummary(sp.getString(getString(R.string.houseOfYACS), ""));
+            houseYACS.setSummary(sp.getString(getString(R.string.houseOfYACS), "unknown"));
         }
     }
 

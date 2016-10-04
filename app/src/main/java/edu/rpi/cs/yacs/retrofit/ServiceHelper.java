@@ -41,7 +41,7 @@ class ServiceHelper {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         // If exists, return String value
-        // Otherwise, set to "unknown"
+        // Otherwise, return "unknown"
         String houseOfYACS = preferences.getString("House of YACS", "unknown");
 
         String baseURL = convertHouseToURL(houseOfYACS);
