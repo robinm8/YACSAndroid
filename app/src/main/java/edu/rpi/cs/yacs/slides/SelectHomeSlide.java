@@ -23,22 +23,27 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.select_home_slide, container, false);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
-
-        if (houseOfYACS.equals("unkown")) {
-            makeYACSHomeDialog();
-        }
-
         return view;
     }
 
-        @Override
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
+
+            if (houseOfYACS.equals("unkown")) {
+                makeYACSHomeDialog();
+            }
+        }
+    }
+
+    @Override
     public boolean isPolicyRespected() {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
 
             return !(houseOfYACS.equals("unkown")); // If user should be allowed to leave this slide
@@ -50,13 +55,13 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
     }
 
     public void makeYACSHomeDialog() {
-        new MaterialDialog.Builder(getActivity())
+        new MaterialDialog.Builder(getContext())
                 .title(R.string.houseOfYACS)
                 .items(R.array.home_YACS_values)
                 .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                         preferences.edit().putString(getString(R.string.houseOfYACS), String.valueOf(text)).apply();
 
                         return true;
