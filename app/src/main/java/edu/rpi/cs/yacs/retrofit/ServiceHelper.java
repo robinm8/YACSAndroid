@@ -1,6 +1,6 @@
 package edu.rpi.cs.yacs.retrofit;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -15,16 +15,16 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Created by Mark Robinson on 9/24/16.
  */
 
-class ServiceHelper {
+public class ServiceHelper {
     @Retention(RUNTIME)
     @interface Json {
     }
 
     private YACSService service;
-    private Activity activity;
+    private Context context;
 
-    private ServiceHelper(Activity activity) {
-        this.activity = activity;
+    public ServiceHelper(Context context) {
+        this.context = context;
 
         invalidateService();
     }
@@ -38,10 +38,10 @@ class ServiceHelper {
      * @return new YACSService that uses the latest "House of YACS" setting
      */
     public YACSService invalidateService() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        // If exists, return String value
-        // Otherwise, return "unknown"
+        // If exists, set to String value
+        // Otherwise, set to "unknown"
         String houseOfYACS = preferences.getString("House of YACS", "unknown");
 
         String baseURL = convertHouseToURL(houseOfYACS);
