@@ -5,21 +5,13 @@ import edu.rpi.cs.yacs.models.School;
 import edu.rpi.cs.yacs.models.Section;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
 interface YACSService {
-    /**
-     * This method fetches all courses given a query to search.
-     * @param query string to search
-     * @return Relevant Course objects of query
-     */
-    @GET("courses.json?search={query}")
-    Call<Course> courseSearch(@Path("query") String query);
-
     /**
      * This method fetches all schools and departments of the college.
      * @return Relevant School objects
@@ -28,18 +20,26 @@ interface YACSService {
     Call<School> loadDepartments();
 
     /**
+     * This method fetches all courses given a query to search.
+     * @param search query string to search
+     * @return Relevant Course objects of query
+     */
+    @GET("/courses.json")
+    Call<Course> loadCoursesBySearch(@Query("search") String search);
+
+    /**
      * This method fetches all courses of a given department.
      * @param department_code department code to fetch courses
      * @return Relevant Course objects of department_code
      */
-    @GET("/courses.json?department_code={department_code}")
-    Call<Course> loadCoursesByDepartment(@Path("department_code") String department_code);
+    @GET("/courses.json")
+    Call<Course> loadCoursesByDepartment(@Query("department_code") String department_code);
 
     /**
      * This method fetches all sections and periods of a given course.
      * @param course_id course id to fetch sections and periods
      * @return Relevant Section objects of course_id
      */
-    @GET("/sections.json?course_id={course_id}&show_periods=true")
-    Call<Section> loadCourseSections(@Path("course_id") int course_id);
+    @GET("/sections.json?show_periods=true")
+    Call<Section> loadCourseSections(@Query("course_id") int course_id);
 }
