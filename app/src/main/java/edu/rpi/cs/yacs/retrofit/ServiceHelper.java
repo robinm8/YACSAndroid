@@ -3,6 +3,7 @@ package edu.rpi.cs.yacs.retrofit;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.lang.annotation.Retention;
 
@@ -44,11 +45,13 @@ public class ServiceHelper {
         // Otherwise, set to "unknown"
         String houseOfYACS = preferences.getString("House of YACS", "unknown");
 
-        String baseURL = convertHouseToURL(houseOfYACS);
+        String baseUrl = convertHouseToURL(houseOfYACS);
+
+        Log.d("Persistent BaseUrl", baseUrl);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(new JsonStringConverterFactory(GsonConverterFactory.create()))
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         service = retrofit.create(YACSService.class);
