@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -22,8 +23,14 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.Arrays;
+
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
+import edu.rpi.cs.yacs.models.School;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Mark Robinson on 9/23/16.
@@ -123,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = mDrawer.getActionBarDrawerToggle();
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-
             @Override
             public Fragment getItem(int position) {
                 String title = String.valueOf(getPageTitle(position));
@@ -174,6 +180,24 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+        Call<School> schoolCall = YACSApplication.getInstance().getServiceHelper().getService().loadSchools();
+
+        schoolCall.enqueue(new Callback<School>() {
+            @Override
+            public void onResponse(Call<School> call, Response<School> response) {
+                int statusCode = response.code();
+                School school = response.body();
+
+                Log.d("Retrofit Call", "School: " + school.getName());
+                Log.d("Retrofit Call", "School departments: " + Arrays.toString(school.getDepartments().toArray()));
+            }
+
+            @Override
+            public void onFailure(Call<School> call, Throwable t) {
+                Log.d("Retrofit Call", "Server died :(");
+            }
+        });
     }
 
     @Override
