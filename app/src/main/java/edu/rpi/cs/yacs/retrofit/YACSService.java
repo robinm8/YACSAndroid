@@ -11,20 +11,20 @@ import retrofit2.http.Query;
  * Created by Mark Robinson on 9/24/16.
  */
 
-interface YACSService {
+public interface YACSService {
     /**
      * This method fetches all schools and departments of the college.
      * @return Relevant School objects
      */
-    @GET("/schools.json?show_departments=true")
-    Call<School> loadDepartments();
+    @GET("schools.json?show_departments=true")
+    Call<School> loadSchools();
 
     /**
      * This method fetches all courses given a query to search.
      * @param search query string to search
      * @return Relevant Course objects of query
      */
-    @GET("/courses.json")
+    @GET("courses.json")
     Call<Course> loadCoursesBySearch(@Query("search") String search);
 
     /**
@@ -32,7 +32,7 @@ interface YACSService {
      * @param department_code department code to fetch courses
      * @return Relevant Course objects of department_code
      */
-    @GET("/courses.json")
+    @GET("courses.json")
     Call<Course> loadCoursesByDepartment(@Query("department_code") String department_code);
 
     /**
@@ -40,6 +40,6 @@ interface YACSService {
      * @param course_id course id to fetch sections and periods
      * @return Relevant Section objects of course_id
      */
-    @GET("/sections.json?show_periods=true")
+    @GET("sections.json?show_periods=true")
     Call<Section> loadCourseSections(@Query("course_id") int course_id);
 }
