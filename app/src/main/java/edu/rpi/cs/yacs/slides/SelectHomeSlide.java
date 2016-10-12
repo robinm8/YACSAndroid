@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.paolorotolo.appintro.ISlidePolicy;
 
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.core.YACSApplication;
 
 /**
  * Created by Mark Robinson on 9/26/16.
@@ -63,6 +64,8 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                         preferences.edit().putString(getString(R.string.houseOfYACS), String.valueOf(text)).apply();
+
+                        YACSApplication.getInstance().getServiceHelper().invalidateService();
 
                         return true;
                     }

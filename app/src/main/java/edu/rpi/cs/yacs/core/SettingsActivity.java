@@ -35,6 +35,8 @@ public class SettingsActivity extends PreferenceActivity {
                                 preference.setDefaultValue(text);
 
                                 sp.edit().putString(getString(R.string.houseOfYACS), String.valueOf(text)).apply();
+
+                                YACSApplication.getInstance().getServiceHelper().invalidateService();
                                 return true;
                             }
                         })
