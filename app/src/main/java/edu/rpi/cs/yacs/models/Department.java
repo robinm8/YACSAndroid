@@ -4,39 +4,95 @@ package edu.rpi.cs.yacs.models;
  * Created by Mark Robinson on 9/24/16.
  */
 
-public class Department {
-    private int id = 0, school_id = 0;
-    private String code = "", name = "";
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public int getId() {
+public class Department {
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+
+    @SerializedName("code")
+    @Expose
+    private String code;
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("school_id")
+    @Expose
+    private Integer schoolId;
+
+    /**
+     *
+     * @return
+     * The id
+     */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /**
+     *
+     * @param id
+     * The id
+     */
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getSchool_id() {
-        return school_id;
-    }
-
-    public void setSchool_id(int school_id) {
-        this.school_id = school_id;
-    }
-
+    /**
+     *
+     * @return
+     * The code
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     *
+     * @param code
+     * The code
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     *
+     * @return
+     * The name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     * The name
+     */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     *
+     * @return
+     * The schoolId
+     */
+    public Integer getSchoolId() {
+        return schoolId;
+    }
+
+    /**
+     *
+     * @param schoolId
+     * The school_id
+     */
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
     }
 }
