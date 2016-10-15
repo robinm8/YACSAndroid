@@ -1,42 +1,98 @@
 package edu.rpi.cs.yacs.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
 public class Period {
-    private int day = 0, start = 0, end = 0;
-    private String type = "";
+    @SerializedName("type")
+    @Expose
+    private String type;
 
-    public int getDay() {
-        return day;
-    }
+    @SerializedName("day")
+    @Expose
+    private Integer day;
 
-    public void setDay(int day) {
-        this.day = day;
-    }
+    @SerializedName("start")
+    @Expose
+    private Integer start;
 
+    @SerializedName("end")
+    @Expose
+    private Integer end;
+
+    /**
+     *
+     * @return
+     * The type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @param type
+     * The type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
-    public int getEnd() {
-        return end;
+    /**
+     *
+     * @return
+     * The day
+     */
+    public Integer getDay() {
+        return day;
     }
 
-    public void setEnd(int end) {
-        this.end = end;
+    /**
+     *
+     * @param day
+     * The day
+     */
+    public void setDay(Integer day) {
+        this.day = day;
     }
 
-    public int getStart() {
+    /**
+     *
+     * @return
+     * The start
+     */
+    public Integer getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    /**
+     *
+     * @param start
+     * The start
+     */
+    public void setStart(Integer start) {
         this.start = start;
+    }
+
+    /**
+     *
+     * @return
+     * The end
+     */
+    public Integer getEnd() {
+        return end;
+    }
+
+    /**
+     *
+     * @param end
+     * The end
+     */
+    public void setEnd(Integer end) {
+        this.end = end;
     }
 }
