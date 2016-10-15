@@ -1,86 +1,211 @@
 package edu.rpi.cs.yacs.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
 public class Section {
-    private int id = 0, crn = 0, seats = 0, seats_taken = 0, num_periods = 0, course_id = 0;
-    private String name;
-    private ArrayList<String> instructors;
-    private ArrayList<Period> periods;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
 
-    public int getId() {
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("crn")
+    @Expose
+    private Integer crn;
+
+    @SerializedName("seats")
+    @Expose
+    private Integer seats;
+
+    @SerializedName("seats_taken")
+    @Expose
+    private Integer seatsTaken;
+
+    @SerializedName("instructors")
+    @Expose
+    private List<String> instructors = new ArrayList<>();
+
+    @SerializedName("num_periods")
+    @Expose
+    private Integer numPeriods;
+
+    @SerializedName("course_id")
+    @Expose
+    private Integer courseId;
+
+    @SerializedName("periods")
+    @Expose
+    private List<Period> periods = new ArrayList<>();
+
+    /**
+     *
+     * @return
+     * The id
+     */
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /**
+     *
+     * @param id
+     * The id
+     */
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getCrn() {
-        return crn;
-    }
-
-    public void setCrn(int crn) {
-        this.crn = crn;
-    }
-
-    public int getSeats() {
-        return seats;
-    }
-
-    public void setSeats(int seats) {
-        this.seats = seats;
-    }
-
-    public int getSeats_taken() {
-        return seats_taken;
-    }
-
-    public void setSeats_taken(int seats_taken) {
-        this.seats_taken = seats_taken;
-    }
-
-    public int getNum_periods() {
-        return num_periods;
-    }
-
-    public void setNum_periods(int num_periods) {
-        this.num_periods = num_periods;
-    }
-
-    public int getCourse_id() {
-        return course_id;
-    }
-
-    public void setCourse_id(int course_id) {
-        this.course_id = course_id;
-    }
-
+    /**
+     *
+     * @return
+     * The name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     * The name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public ArrayList<String> getInstructors() {
+    /**
+     *
+     * @return
+     * The crn
+     */
+    public Integer getCrn() {
+        return crn;
+    }
+
+    /**
+     *
+     * @param crn
+     * The crn
+     */
+    public void setCrn(Integer crn) {
+        this.crn = crn;
+    }
+
+    /**
+     *
+     * @return
+     * The seats
+     */
+    public Integer getSeats() {
+        return seats;
+    }
+
+    /**
+     *
+     * @param seats
+     * The seats
+     */
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
+
+    /**
+     *
+     * @return
+     * The seatsTaken
+     */
+    public Integer getSeatsTaken() {
+        return seatsTaken;
+    }
+
+    /**
+     *
+     * @param seatsTaken
+     * The seats_taken
+     */
+    public void setSeatsTaken(Integer seatsTaken) {
+        this.seatsTaken = seatsTaken;
+    }
+
+    /**
+     *
+     * @return
+     * The instructors
+     */
+    public List<String> getInstructors() {
         return instructors;
     }
 
-    public void setInstructors(ArrayList<String> instructors) {
+    /**
+     *
+     * @param instructors
+     * The instructors
+     */
+    public void setInstructors(List<String> instructors) {
         this.instructors = instructors;
     }
 
-    public ArrayList<Period> getPeriods() {
+    /**
+     *
+     * @return
+     * The numPeriods
+     */
+    public Integer getNumPeriods() {
+        return numPeriods;
+    }
+
+    /**
+     *
+     * @param numPeriods
+     * The num_periods
+     */
+    public void setNumPeriods(Integer numPeriods) {
+        this.numPeriods = numPeriods;
+    }
+
+    /**
+     *
+     * @return
+     * The courseId
+     */
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    /**
+     *
+     * @param courseId
+     * The course_id
+     */
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    /**
+     *
+     * @return
+     * The periods
+     */
+    public List<Period> getPeriods() {
         return periods;
     }
 
-    public void setPeriods(ArrayList<Period> periods) {
+    /**
+     *
+     * @param periods
+     * The periods
+     */
+    public void setPeriods(List<Period> periods) {
         this.periods = periods;
     }
 }
