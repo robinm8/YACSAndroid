@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -23,14 +22,10 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.util.Arrays;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
-import edu.rpi.cs.yacs.models.School;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Mark Robinson on 9/23/16.
@@ -38,10 +33,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MaterialViewPager mViewPager;
     private Drawer mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
+
+    @BindView(R.id.materialViewPager)
+    MaterialViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +47,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("");
 
+        ButterKnife.bind(this);
+
         final Activity activity = this;
 
         ActionBar actionBar = getSupportActionBar();
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         toolbar = mViewPager.getToolbar();
 
         if (toolbar != null) {
@@ -107,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(activity, SettingsActivity.class);
-                            }else if (drawerItem.getIdentifier() == 2) {
+                            } else if (drawerItem.getIdentifier() == 2) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .intent(MainActivity.this);
-                            }else if (drawerItem.getIdentifier() == 3) {
+                            } else if (drawerItem.getIdentifier() == 3) {
 //                                 TODO: Make Feedback Dialog
                             }
                             if (intent != null) {
@@ -180,24 +178,6 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
-
-        Call<School> schoolCall = YACSApplication.getInstance().getServiceHelper().getService().loadSchools();
-
-        schoolCall.enqueue(new Callback<School>() {
-            @Override
-            public void onResponse(Call<School> call, Response<School> response) {
-                int statusCode = response.code();
-                School school = response.body();
-
-                Log.d("Retrofit Call", "School: " + school.getName());
-                Log.d("Retrofit Call", "School departments: " + Arrays.toString(school.getDepartments().toArray()));
-            }
-
-            @Override
-            public void onFailure(Call<School> call, Throwable t) {
-                Log.d("Retrofit Call", "Server died :(");
-            }
-        });
     }
 
     @Override

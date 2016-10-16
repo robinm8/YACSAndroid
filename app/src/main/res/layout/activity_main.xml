@@ -17,13 +17,13 @@
         app:viewpager_headerAlpha="1.0"
         app:viewpager_imageHeaderDarkLayerAlpha="0.2"
         app:viewpager_hideLogoWithFade="false"
-        app:viewpager_hideToolbarAndTitle="true"
+        app:viewpager_hideToolbarAndTitle="false"
         app:viewpager_enableToolbarElevation="true"
         app:viewpager_parallaxHeaderFactor="1.5"
-        app:viewpager_headerAdditionalHeight="20dp"
+        app:viewpager_headerAdditionalHeight="5dp"
         app:viewpager_displayToolbarWhenSwipe="true"
         app:viewpager_transparentToolbar="false"
-        app:viewpager_animatedHeaderImage="true"
+        app:viewpager_animatedHeaderImage="false"
         />
 
     <include layout="@layout/drawer" />
