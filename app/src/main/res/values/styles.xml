@@ -27,7 +27,7 @@
     <style name="AppTheme.MainActivity">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textViewStyle">@style/OverlayShadow</item>
+        <!--<item name="android:textViewStyle">@style/OverlayShadow</item>-->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
 
