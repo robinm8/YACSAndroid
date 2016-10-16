@@ -3,7 +3,7 @@
 
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_settings">Settings</string>
-    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_open_source">Licenses</string>
     <string name="drawer_item_feedback">Send feedback</string>
 
     <string name="settings_activity_title">Preferences</string>
