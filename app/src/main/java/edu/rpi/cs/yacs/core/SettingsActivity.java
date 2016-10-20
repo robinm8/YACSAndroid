@@ -24,17 +24,17 @@ public class SettingsActivity extends PreferenceActivity {
 
         @Override
         public boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference) {
-            if (preference.getKey().equals(getString(R.string.houseOfYACS))) {
+            if (preference.getKey().equals(getString(R.string.college))) {
                 new MaterialDialog.Builder(getActivity())
-                        .title(R.string.houseOfYACS)
-                        .items(R.array.home_YACS_values)
+                        .title(R.string.college)
+                        .items(R.array.colleges)
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                                 preference.setSummary(text);
                                 preference.setDefaultValue(text);
 
-                                sp.edit().putString(getString(R.string.houseOfYACS), String.valueOf(text)).apply();
+                                sp.edit().putString(getString(R.string.college), String.valueOf(text)).apply();
 
                                 YACSApplication.getInstance().getServiceHelper().invalidateService();
                                 return true;
@@ -55,8 +55,8 @@ public class SettingsActivity extends PreferenceActivity {
 
             sp = getPreferenceScreen().getSharedPreferences();
 
-            Preference houseYACS = findPreference("House of YACS");
-            houseYACS.setSummary(sp.getString(getString(R.string.houseOfYACS), "unknown"));
+            Preference college = findPreference(getString(R.string.college));
+            college.setSummary(sp.getString(getString(R.string.college), "unknown"));
         }
     }
 
