@@ -17,6 +17,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:installLocation="preferExternal"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".core.MainActivity"
