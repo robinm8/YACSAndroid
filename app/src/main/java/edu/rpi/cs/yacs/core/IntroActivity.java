@@ -45,9 +45,9 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
+        String college = preferences.getString(getString(R.string.college), "unknown");
 
-        if (!currentFragment.getClass().equals(selectHomeSlide.getClass()) && !houseOfYACS.equals("unkown")) {
+        if (!currentFragment.getClass().equals(selectHomeSlide.getClass()) && !college.equals("unknown")) {
             super.onSkipPressed(currentFragment);
             launchMain();
         }
@@ -56,9 +56,9 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
+        String college = preferences.getString(getString(R.string.college), "unknown");
 
-        if (!currentFragment.getClass().equals(selectHomeSlide.getClass()) && !houseOfYACS.equals("unkown")) {
+        if (!currentFragment.getClass().equals(selectHomeSlide.getClass()) && !college.equals("unknown")) {
             super.onDonePressed(currentFragment);
             launchMain();
         }
