@@ -5,8 +5,8 @@
 
     <com.jenzz.materialpreference.Preference
         android:persistent="true"
-        android:key="@string/houseOfYACS"
-        android:title="@string/houseOfYACS"/>
+        android:key="@string/college"
+        android:title="@string/college"/>
 
     </com.jenzz.materialpreference.PreferenceCategory>
 
