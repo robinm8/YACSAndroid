@@ -12,7 +12,7 @@
         android:name=".core.YACSApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/yacs_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
