@@ -7,6 +7,6 @@
     <string name="drawer_item_feedback">Send feedback</string>
 
     <string name="settings_activity_title">Preferences</string>
-    <string name="houseOfYACS">House of YACS</string>
+    <string name="college">College</string>
     <string name="Select">Select</string>
 </resources>
