@@ -34,9 +34,9 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
 
         if (isVisibleToUser) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
+            String college = preferences.getString(getString(R.string.college), "unknown");
 
-            if (houseOfYACS.equals("unkown")) {
+            if (college.equals("unknown")) {
                 makeYACSHomeDialog();
             }
         }
@@ -45,9 +45,9 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
     @Override
     public boolean isPolicyRespected() {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String houseOfYACS = preferences.getString(getString(R.string.houseOfYACS), "unkown");
+            String college = preferences.getString(getString(R.string.college), "unknown");
 
-            return !(houseOfYACS.equals("unkown")); // If user should be allowed to leave this slide
+            return !(college.equals("unknown")); // If user should be allowed to leave this slide
     }
 
     @Override
@@ -57,13 +57,13 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
 
     public void makeYACSHomeDialog() {
         new MaterialDialog.Builder(getContext())
-                .title(R.string.houseOfYACS)
-                .items(R.array.home_YACS_values)
+                .title(R.string.college)
+                .items(R.array.colleges)
                 .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                        preferences.edit().putString(getString(R.string.houseOfYACS), String.valueOf(text)).apply();
+                        preferences.edit().putString(getString(R.string.college), String.valueOf(text)).apply();
 
                         YACSApplication.getInstance().getServiceHelper().invalidateService();
 
