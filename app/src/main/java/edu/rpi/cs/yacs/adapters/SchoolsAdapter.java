@@ -60,7 +60,8 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
     @Override
     protected void onBindItemViewHolder(ItemViewHolder holder, int section, int position) {
         String departmentName = schoolList.get(section).getDepartments().get(position).getName();
+        String departmentCode = schoolList.get(section).getDepartments().get(position).getCode();
 
-        holder.render(departmentName);
+        holder.render(departmentName, departmentCode);
     }
 }

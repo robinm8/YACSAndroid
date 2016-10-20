@@ -12,17 +12,19 @@ import edu.rpi.cs.yacs.R;
  * Created by Mark Robinson on 10/15/16.
  */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.title)
-    TextView textView;
+    @BindView(R.id.name)
+    TextView nameView;
+
+    @BindView(R.id.code)
+    TextView codeView;
 
     public ItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-
-        textView.setTextAppearance(R.style.MaterialTheme_Light);
     }
 
-    public void render(String text){
-        textView.setText(text);
+    public void render(String name, String code){
+        nameView.setText(name);
+        codeView.setText(code);
     }
 }
