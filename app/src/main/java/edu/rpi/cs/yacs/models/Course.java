@@ -11,21 +11,27 @@ public class Course {
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("number")
     @Expose
     private Integer number;
+
     @SerializedName("min_credits")
     @Expose
     private Integer minCredits;
+
     @SerializedName("max_credits")
     @Expose
     private Integer maxCredits;
+
     @SerializedName("description")
     @Expose
     private String description;
+
     @SerializedName("department_id")
     @Expose
     private Integer departmentId;
