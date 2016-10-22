@@ -45,6 +45,7 @@ public class RecyclerViewFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private SchoolsAdapter schoolsAdapter;
     private AlphaInAnimationAdapter alphaInAnimationAdapter;
+    private ScaleInAnimationAdapter scaleInAnimationAdapter;
     private List<Object> mContentItems = new ArrayList<>();
     private String tabTitle;
 
@@ -136,11 +137,14 @@ public class RecyclerViewFragment extends Fragment {
         mAdapter = new RecyclerViewMaterialAdapter(schoolsAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
-        alphaInAnimationAdapter.setDuration(1000);
+        alphaInAnimationAdapter.setDuration(250);
         alphaInAnimationAdapter.setFirstOnly(false);
-        alphaInAnimationAdapter.setInterpolator(new OvershootInterpolator());
 
-        mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
+        scaleInAnimationAdapter = new ScaleInAnimationAdapter(alphaInAnimationAdapter);
+        scaleInAnimationAdapter.setFirstOnly(false);
+        scaleInAnimationAdapter.setInterpolator(new OvershootInterpolator());
+
+        mRecyclerView.setAdapter(scaleInAnimationAdapter);
 
         mContentItems.add(new Object());
 
