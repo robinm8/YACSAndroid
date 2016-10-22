@@ -1,65 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="32dp"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:layout_marginBottom="1dp"
+    android:clickable="true"
+    android:background="#ECEFF1" >
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/md_black_1000"
+        android:textStyle="bold"
+        tools:text="CODE"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:typeface="monospace"
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/name" />
 
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp"
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:text="Science and Technology Studies - Social Science"
+        android:background="?android:selectableItemBackground"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/code" />
 
-            android:foreground="?android:attr/selectableItemBackground"
-            android:focusable="true"
-            android:clickable="true"
-
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="@dimen/cardMarginHorizontal"
-            android:layout_marginRight="@dimen/cardMarginHorizontal"
-            android:layout_marginTop="2dp"
-
-            app:cardPreventCornerOverlap="true"
-            app:contentPadding="5dp"
-            app:contentPaddingTop="5dp"
-            app:contentPaddingLeft="10dp"
-            app:contentPaddingRight="0dp"
-            android:layout_gravity="center_vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/md_black_1000"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="5dp"
-                    tools:text="CODE"
-                    android:textSize="12sp"
-                    android:gravity="center_vertical"
-                    android:typeface="monospace"
-                    android:layout_gravity="center"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignBottom="@+id/name" />
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toEndOf="@+id/code"
-                    tools:text="Science and Technology Studies - Social Science"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textSize="15sp" />
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-</FrameLayout>
+</RelativeLayout>
