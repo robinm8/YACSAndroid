@@ -112,12 +112,14 @@ public class RecyclerViewFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Schools> call, Throwable t) {
-                        Log.d("Retrofit Call", "Server failed :(");
+                        Log.d("Retrofit Call", "Failed. Retrying...");
 
                         List<School> list = new ArrayList<>();
                         createSchoolsAdapter(list);
 
-                        getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=t3otBjVZzT0")));
+                        call.clone(); // VERY UGLY HACK
+                        // Will this leak threads?
+                        // TODO: Replace with a "pull down to refresh" layout
                     }
                 });
 
@@ -137,8 +139,8 @@ public class RecyclerViewFragment extends Fragment {
         mAdapter = new RecyclerViewMaterialAdapter(schoolsAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
-        alphaInAnimationAdapter.setDuration(250);
         alphaInAnimationAdapter.setFirstOnly(false);
+        alphaInAnimationAdapter.setDuration(250);
 
         scaleInAnimationAdapter = new ScaleInAnimationAdapter(alphaInAnimationAdapter);
         scaleInAnimationAdapter.setFirstOnly(false);
