@@ -28,9 +28,9 @@ public class IntroActivity extends AppIntro2 {
 
         selectHomeSlide = new SelectHomeSlide();
 
-        addSlide(AppIntroFragment.newInstance("Welcome To YACS!", "Simple, Sane Course Scheduling \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
+        addSlide(AppIntroFragment.newInstance("Welcome To YACS!", "Simple, Sane Course Scheduling \n\n( Coming Soon To Android! )", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
         addSlide(AppIntroFragment.newInstance("YACS", "100% RPI home-grown and hosted \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
-        addSlide(AppIntroFragment.newInstance("Google Calendar", "If you want, Google Calendar can be used to save your schedules.\n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
+        addSlide(AppIntroFragment.newInstance("Google Calendar", "Save your schedule \nOn Google Calendar", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
         addSlide(selectHomeSlide);
         addSlide(AppIntroFragment.newInstance("All Set!", "You're awesome, enjoy our app! \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
 
