@@ -135,7 +135,7 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     public void createSchoolsAdapter(List<School> schoolList) {
-        schoolsAdapter = new SchoolsAdapter(schoolList);
+        schoolsAdapter = new SchoolsAdapter(mRecyclerView, schoolList);
         mAdapter = new RecyclerViewMaterialAdapter(schoolsAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
