@@ -1,5 +1,7 @@
 package edu.rpi.cs.yacs.adapters;
 
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import com.truizlop.sectionedrecyclerview.SimpleSectionedAdapter;
 import java.util.List;
 
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.models.Department;
 import edu.rpi.cs.yacs.models.School;
 import edu.rpi.cs.yacs.viewholders.ItemViewHolder;
 
@@ -18,8 +21,10 @@ import edu.rpi.cs.yacs.viewholders.ItemViewHolder;
 public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
 
     private List<School> schoolList = null;
+    private RecyclerView recyclerView = null;
 
-    public SchoolsAdapter(final List<School> schoolList) {
+    public SchoolsAdapter(final RecyclerView recyclerView, List<School> schoolList) {
+        this.recyclerView = recyclerView;
         this.schoolList = schoolList;
     }
 
@@ -58,10 +63,29 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
     }
 
     @Override
-    protected void onBindItemViewHolder(ItemViewHolder holder, int section, int position) {
-        String departmentName = schoolList.get(section).getDepartments().get(position).getName();
-        String departmentCode = schoolList.get(section).getDepartments().get(position).getCode();
+    protected void onBindItemViewHolder(ItemViewHolder holder, final int section, int position) {
+        final School school = schoolList.get(section);
+        final Department department = school.getDepartments().get(position);
 
-        holder.render(departmentName, departmentCode);
+        holder.render(department.getName(), department.getCode());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Adapter", "Clicked");
+
+                v.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        schoolList.clear();
+
+                        recyclerView.getRecycledViewPool().clear();
+                        recyclerView.removeAllViews();
+
+                        notifyDataSetChanged();
+                    }
+                }, 500);
+            }
+        });
     }
 }
