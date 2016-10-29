@@ -5,21 +5,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.lang.annotation.Retention;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
 public class ServiceHelper {
-    @Retention(RUNTIME)
-    @interface Json {
-    }
 
     private YACSService service;
     private Context context;
