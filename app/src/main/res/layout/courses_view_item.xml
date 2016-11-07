@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:focusable="true"
+    android:layout_marginBottom="1dp"
+    android:clickable="true"
+    android:background="#ECEFF1" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight=".50"
+            android:textColor="@color/md_black_1000"
+            tools:text="CSCI 1100"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/credits"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight=".50"
+            android:textColor="@color/md_black_1000"
+            tools:text="4 credits"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        tools:text="Introduction to Computer Programming"
+        android:textStyle="bold"
+        android:background="?android:selectableItemBackground"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        tools:text="Computer programming is a way of thinking. A successful programmer needs to take a word problem, generate a pseudocode algorithm, and convert it to the syntax of a specific programming language. This course is an alternative to CSCI 1100 and is intended for students who want an introduction to this programming process but do not intend to do further course work in programming or computer science. Emphasis will be on the generation of the algorithms. Rather than using the complex syntax of a production language such as C or C++, this course will use Visual Basic. This allows concentration on the fundamentals and without becoming sidetracked by language complexity. It also affords students a tool for creating useful personal applications or prototypes in the future. Students cannot get credit for this course if they have already taken any other CSCI course.When Offered: Fall and spring terms annually.Credit Hours: 4"
+        android:background="?android:selectableItemBackground"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textAlignment="center" />
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/sectionsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp" />
+
+</LinearLayout>
