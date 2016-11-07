@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Select Your House of YACS" />
+        android:text="@string/select_college" />
 
 </LinearLayout>

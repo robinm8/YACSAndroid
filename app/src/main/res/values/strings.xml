@@ -9,4 +9,5 @@
     <string name="settings_activity_title">Preferences</string>
     <string name="college">College</string>
     <string name="Select">Select</string>
+    <string name="select_college">Select Your College</string>
 </resources>
