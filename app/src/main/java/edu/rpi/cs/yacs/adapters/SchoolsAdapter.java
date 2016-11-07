@@ -58,7 +58,7 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
     @Override
     protected ItemViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.view_item, parent, false);
+        View view = inflater.inflate(R.layout.school_view_item, parent, false);
         return new ItemViewHolder(view);
     }
 
