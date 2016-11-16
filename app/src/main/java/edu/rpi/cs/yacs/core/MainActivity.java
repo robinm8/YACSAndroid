@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .withShowDrawerOnFirstLaunch(true)
+                .withShowDrawerOnFirstLaunch(false)
                 .build();
 
 
