@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.paolorotolo.appintro.ISlidePolicy;
 
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.core.IntroActivity;
 import edu.rpi.cs.yacs.core.YACSApplication;
 
 /**
@@ -21,10 +22,16 @@ import edu.rpi.cs.yacs.core.YACSApplication;
 
 public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
 
+    private IntroActivity introActivity;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.select_home_slide, container, false);
+
+        Bundle bundle = getArguments();
+        introActivity = (IntroActivity) bundle.getSerializable("activity");
+
         return view;
     }
 
@@ -66,6 +73,8 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
                         preferences.edit().putString(getString(R.string.college), String.valueOf(text)).apply();
 
                         YACSApplication.getInstance().getServiceHelper().invalidateService();
+
+                        introActivity.clickNextButton();
 
                         return true;
                     }
