@@ -42,6 +42,11 @@ public class RecyclerViewFragment extends Fragment {
     private static final String ARG_TAB_TITLE = "tabTitle";
 
     private RecyclerView mRecyclerView;
+
+    public RecyclerView.Adapter getMAdapter() {
+        return mAdapter;
+    }
+
     private RecyclerView.Adapter mAdapter;
     private SchoolsAdapter schoolsAdapter;
     private AlphaInAnimationAdapter alphaInAnimationAdapter;
@@ -117,9 +122,9 @@ public class RecyclerViewFragment extends Fragment {
                         List<School> list = new ArrayList<>();
                         createSchoolsAdapter(list);
 
-                        call.clone(); // VERY UGLY HACK
-                        // Will this leak threads?
-                        // TODO: Replace with a "pull down to refresh" layout
+                        call.clone();
+
+                        // TODO: Replace with a "pull down to refresh" layout, soon
                     }
                 });
 
@@ -135,7 +140,7 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     public void createSchoolsAdapter(List<School> schoolList) {
-        schoolsAdapter = new SchoolsAdapter(mRecyclerView, schoolList);
+        schoolsAdapter = new SchoolsAdapter(this, schoolList);
         mAdapter = new RecyclerViewMaterialAdapter(schoolsAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
