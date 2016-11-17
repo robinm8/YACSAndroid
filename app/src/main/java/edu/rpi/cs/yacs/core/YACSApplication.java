@@ -5,6 +5,7 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 
+import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.retrofit.ServiceHelper;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -18,6 +19,7 @@ public class YACSApplication extends Application {
 
     private ServiceHelper serviceHelper = null;
     private Realm realm = null;
+    private RecyclerViewMode recyclerViewMode = RecyclerViewMode.DEPARTMENTS;
 
     public static YACSApplication getInstance() {
         return instance;
@@ -52,5 +54,13 @@ public class YACSApplication extends Application {
 
     public Realm getRealm() {
         return realm;
+    }
+
+    public RecyclerViewMode getRecyclerViewMode() {
+        return recyclerViewMode;
+    }
+
+    public void setRecyclerViewMode(RecyclerViewMode recyclerViewMode) {
+        this.recyclerViewMode = recyclerViewMode;
     }
 }
