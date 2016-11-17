@@ -25,6 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 
 /**
@@ -190,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (mDrawer != null && mDrawer.isDrawerOpen()) {
             mDrawer.closeDrawer();
+        } else if (YACSApplication.getInstance().getRecyclerViewMode() == RecyclerViewMode.COURSES) {
+            // TODO: On back pressed, clear Main RecylcerView and load departments
         } else {
             super.onBackPressed();
         }
