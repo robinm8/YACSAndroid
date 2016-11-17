@@ -1,6 +1,5 @@
 package edu.rpi.cs.yacs.adapters;
 
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +10,22 @@ import com.truizlop.sectionedrecyclerview.SimpleSectionedAdapter;
 import java.util.List;
 
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 import edu.rpi.cs.yacs.models.Department;
 import edu.rpi.cs.yacs.models.School;
-import edu.rpi.cs.yacs.viewholders.ItemViewHolder;
+import edu.rpi.cs.yacs.viewholders.SchoolItemViewHolder;
 
 /**
  * Created by Mark Robinson on 10/15/16.
  */
-public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
+public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder> {
 
     private List<School> schoolList = null;
-    private RecyclerView recyclerView = null;
+    private RecyclerViewFragment recyclerViewFragment = null;
 
-    public SchoolsAdapter(final RecyclerView recyclerView, List<School> schoolList) {
-        this.recyclerView = recyclerView;
+    public SchoolsAdapter(RecyclerViewFragment recyclerViewFragment, List<School> schoolList) {
         this.schoolList = schoolList;
+        this.recyclerViewFragment = recyclerViewFragment;
     }
 
     @Override
@@ -56,14 +56,15 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
     }
 
     @Override
-    protected ItemViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
+    protected SchoolItemViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.school_view_item, parent, false);
-        return new ItemViewHolder(view);
+
+        return new SchoolItemViewHolder(view);
     }
 
     @Override
-    protected void onBindItemViewHolder(ItemViewHolder holder, final int section, int position) {
+    protected void onBindItemViewHolder(final SchoolItemViewHolder holder, final int section, final int position) {
         final School school = schoolList.get(section);
         final Department department = school.getDepartments().get(position);
 
@@ -77,12 +78,28 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<ItemViewHolder> {
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+//                        int modPosition = holder.getLayoutPosition();
+//
+//                        Log.d("school list 0 0", schoolList.get(0).getDepartments().get(0).getName());
+//
+//                        List<Department> departments =  schoolList.get(0).getDepartments();
+//                        departments.remove(0);
+//                        schoolList.get(0).setDepartments(departments);
+//
+//                        Log.d("school list 0 0", schoolList.get(0).getDepartments().get(0).getName());
+//
+//                        notifyItemRemoved(modPosition);
+//                        recyclerViewFragment.getMAdapter().notifyItemRemoved(modPosition);
+
+
+//                        Expected behavior: Clear list, animate removal of all items
+
+                        int count = getItemCount();
+
                         schoolList.clear();
 
-                        recyclerView.getRecycledViewPool().clear();
-                        recyclerView.removeAllViews();
-
-                        notifyDataSetChanged();
+                        notifyItemRangeRemoved(0, count);
+                        recyclerViewFragment.getMAdapter().notifyItemRangeRemoved(0, count);
                     }
                 }, 500);
             }
