@@ -5,6 +5,5 @@ package edu.rpi.cs.yacs.enums;
  */
 
 public enum MainRecyclerViewMode {
-
-
+    DEPARTMENTS, COURSES;
 }
