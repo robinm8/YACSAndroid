@@ -2,9 +2,11 @@ package edu.rpi.cs.yacs.core;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 
 import edu.rpi.cs.yacs.retrofit.ServiceHelper;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -24,12 +26,15 @@ public class YACSApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             return;
         }
+
+        Fabric.with(this, new Crashlytics());
+
+        instance = this;
 
         LeakCanary.install(this);
 
