@@ -5,7 +5,10 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.util.ArrayList;
+
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
+import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.retrofit.ServiceHelper;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -20,6 +23,7 @@ public class YACSApplication extends Application {
     private ServiceHelper serviceHelper = null;
     private Realm realm = null;
     private RecyclerViewMode recyclerViewMode = RecyclerViewMode.DEPARTMENTS;
+    private ArrayList<Course> selectedCourses = new ArrayList<>();
 
     public static YACSApplication getInstance() {
         return instance;
@@ -62,5 +66,9 @@ public class YACSApplication extends Application {
 
     public void setRecyclerViewMode(RecyclerViewMode recyclerViewMode) {
         this.recyclerViewMode = recyclerViewMode;
+    }
+
+    public ArrayList<Course> getSelectedCourses() {
+        return selectedCourses;
     }
 }
