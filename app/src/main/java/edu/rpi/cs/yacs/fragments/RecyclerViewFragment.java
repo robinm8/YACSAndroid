@@ -21,10 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.adapters.CoursesAdapter;
 import edu.rpi.cs.yacs.adapters.SchoolsAdapter;
 import edu.rpi.cs.yacs.core.YACSApplication;
+import edu.rpi.cs.yacs.models.Course;
+import edu.rpi.cs.yacs.models.Courses;
 import edu.rpi.cs.yacs.models.School;
 import edu.rpi.cs.yacs.models.Schools;
+import edu.rpi.cs.yacs.models.Section;
+import edu.rpi.cs.yacs.models.Sections;
 import edu.rpi.cs.yacs.retrofit.YACSService;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
@@ -52,9 +57,9 @@ public class RecyclerViewFragment extends Fragment {
 
     private RecyclerView.Adapter mAdapter = null;
     private SchoolsAdapter schoolsAdapter = null;
+    private CoursesAdapter coursesAdapter = null;
     private AlphaInAnimationAdapter alphaInAnimationAdapter = null;
     private ScaleInAnimationAdapter scaleInAnimationAdapter = null;
-    private List<Object> mContentItems = new ArrayList<>();
     private String tabTitle;
     private YACSService webService = null;
 
@@ -148,6 +153,79 @@ public class RecyclerViewFragment extends Fragment {
         });
     }
 
+    public void populateCoursesAdapter(final String department) {
+        Call<Courses> coursesCall = webService.loadCoursesByDepartment(department);
+
+        coursesCall.enqueue(new Callback<Courses>() {
+            @Override
+            public void onResponse(Call<Courses> call, Response<Courses> response) {
+                List<Course> courseList = null;
+
+                if (response.isSuccessful()) {
+                    Courses courses = response.body();
+
+                    courseList = courses.getCourses();
+                } else {
+                    int statusCode = response.code();
+
+                    ResponseBody errorBody = response.errorBody();
+
+                    Log.d("Retrofit Call", "Server error " + statusCode);
+
+                    try {
+                        Log.d("Retrofit Call Error", errorBody.string());
+                    } catch (IOException ignored) {}
+
+                    createFailedSnackbar();
+                }
+
+                createCoursesAdapter(department, courseList);
+            }
+
+            @Override
+            public void onFailure(Call<Courses> call, Throwable t) {
+                Log.d("Retrofit Call", "Failed.");
+
+                List<Course> list = new ArrayList<>();
+                createCoursesAdapter(department, list);
+
+                createFailedSnackbar();
+            }
+        });
+    }
+
+    public void loadCourseSections(final int courseId, final Callback<Sections> callback) {
+        Call<Sections> sectionsCall = webService.loadCourseSections(courseId);
+
+        sectionsCall.enqueue(new Callback<Sections>() {
+            @Override
+            public void onResponse(Call<Sections> call, Response<Sections> response) {
+
+                if (response.isSuccessful()) {
+
+                    callback.onResponse(call, response);
+                } else {
+                    int statusCode = response.code();
+
+                    ResponseBody errorBody = response.errorBody();
+
+                    Log.d("Retrofit Call", "Server error " + statusCode);
+
+                    try {
+                        Log.d("Retrofit Call Error", errorBody.string());
+                    } catch (IOException ignored) {}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Sections> call, Throwable t) {
+                Log.d("Retrofit Call", "Failed.");
+
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
     public void createSchoolsAdapter(List<School> schoolList) {
         schoolsAdapter = new SchoolsAdapter(this, schoolList);
         mAdapter = new RecyclerViewMaterialAdapter(schoolsAdapter);
@@ -162,7 +240,23 @@ public class RecyclerViewFragment extends Fragment {
 
         mRecyclerView.setAdapter(scaleInAnimationAdapter);
 
-        mContentItems.add(new Object());
+        mAdapter.notifyDataSetChanged();
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
+    }
+
+    public void createCoursesAdapter(String department, List<Course> courseList) {
+        coursesAdapter = new CoursesAdapter(this, department, courseList);
+        mAdapter = new RecyclerViewMaterialAdapter(coursesAdapter);
+
+        alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+        alphaInAnimationAdapter.setFirstOnly(false);
+        alphaInAnimationAdapter.setDuration(250);
+
+        scaleInAnimationAdapter = new ScaleInAnimationAdapter(alphaInAnimationAdapter);
+        scaleInAnimationAdapter.setFirstOnly(false);
+        scaleInAnimationAdapter.setInterpolator(new OvershootInterpolator());
+
+        mRecyclerView.swapAdapter(scaleInAnimationAdapter, true);
 
         mAdapter.notifyDataSetChanged();
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
