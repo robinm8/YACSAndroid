@@ -10,6 +10,8 @@ import com.truizlop.sectionedrecyclerview.SimpleSectionedAdapter;
 import java.util.List;
 
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.core.YACSApplication;
+import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 import edu.rpi.cs.yacs.models.Department;
 import edu.rpi.cs.yacs.models.School;
@@ -72,7 +74,7 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder>
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 Log.d("Adapter", "Clicked");
 
                 v.postDelayed(new Runnable() {
@@ -92,7 +94,7 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder>
 //                        recyclerViewFragment.getMAdapter().notifyItemRemoved(modPosition);
 
 
-//                        Expected behavior: Clear list, animate removal of all items
+//                        Expected behavior: Clear list, animate removal of all items, load department courses
 
                         int count = getItemCount();
 
@@ -100,6 +102,15 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder>
 
                         notifyItemRangeRemoved(0, count);
                         recyclerViewFragment.getMAdapter().notifyItemRangeRemoved(0, count);
+
+                        v.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerViewFragment.populateCoursesAdapter(department.getCode());
+
+                                YACSApplication.getInstance().setRecyclerViewMode(RecyclerViewMode.COURSES);
+                            }
+                        }, 500);
                     }
                 }, 500);
             }
