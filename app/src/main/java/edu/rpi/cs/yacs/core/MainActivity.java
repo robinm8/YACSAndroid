@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         if (mDrawer != null && mDrawer.isDrawerOpen()) {
             mDrawer.closeDrawer();
         } else if (YACSApplication.getInstance().getRecyclerViewMode() == RecyclerViewMode.COURSES) {
-            // TODO: On back pressed, clear Main RecylcerView and load departments
+            // TODO: On back pressed, clear Main RecylcerView and load schools
         } else {
             super.onBackPressed();
         }
