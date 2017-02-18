@@ -5,12 +5,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
     android:focusable="true"
     android:layout_marginBottom="1dp"
-    android:clickable="true"
-    android:background="#ECEFF1">
+    android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,12 +43,12 @@
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        tools:text="Introduction to Computer Programming"
-        android:textStyle="bold"
-        android:background="?android:selectableItemBackground"
+        android:layout_height="20dp"
         android:layout_gravity="center"
-        android:gravity="center"/>
+        android:background="?android:selectableItemBackground"
+        android:gravity="center"
+        android:textStyle="bold"
+        tools:text="Introduction to Computer Programming" />
 
     <at.blogc.android.views.ExpandableTextView
         android:id="@+id/description"
