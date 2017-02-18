@@ -80,37 +80,37 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder>
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        int modPosition = holder.getLayoutPosition();
-//
-//                        Log.d("school list 0 0", schoolList.get(0).getDepartments().get(0).getName());
-//
-//                        List<Department> departments =  schoolList.get(0).getDepartments();
-//                        departments.remove(0);
-//                        schoolList.get(0).setDepartments(departments);
-//
-//                        Log.d("school list 0 0", schoolList.get(0).getDepartments().get(0).getName());
-//
-//                        notifyItemRemoved(modPosition);
-//                        recyclerViewFragment.getMAdapter().notifyItemRemoved(modPosition);
 
 
-//                        Expected behavior: Clear list, animate removal of all items, load department courses
+//                        Expected behavior: animate to top, clear list, animate remove all items, load department courses
+                        Log.d("recyclerview", "scrolling");
 
-                        int count = getItemCount();
-
-                        schoolList.clear();
-
-                        notifyItemRangeRemoved(0, count);
-                        recyclerViewFragment.getMAdapter().notifyItemRangeRemoved(0, count);
+                        recyclerViewFragment.getMRecyclerView().smoothScrollToPosition(0);
 
                         v.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                Log.d("recyclerview", "removing");
+
+                                int count = getItemCount();
+
+                                schoolList.clear();
+
+                                notifyItemRangeRemoved(0, count);
+                                recyclerViewFragment.getMAdapter().notifyItemRangeRemoved(0, count);
+                            }
+                        }, 600);
+
+                        v.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("recyclerview", "populating");
+
                                 recyclerViewFragment.populateCoursesAdapter(department.getCode());
 
                                 YACSApplication.getInstance().setRecyclerViewMode(RecyclerViewMode.COURSES);
                             }
-                        }, 500);
+                        }, 1250);
                     }
                 }, 500);
             }

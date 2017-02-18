@@ -67,19 +67,18 @@
         app:animation_duration="1000"
         android:textColor="@color/md_black_1000" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sectionsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <Button
         android:id="@+id/button_toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/expand"
         android:textColor="@color/md_black_1000" />
-
-    <android.support.v7.widget.RecyclerView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/sectionsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="15dp" />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package edu.rpi.cs.yacs.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,16 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 
+import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.adapters.CoursesAdapter;
 import edu.rpi.cs.yacs.adapters.SchoolsAdapter;
+import edu.rpi.cs.yacs.core.MainActivity;
 import edu.rpi.cs.yacs.core.YACSApplication;
 import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.models.Courses;
@@ -44,6 +49,7 @@ import retrofit2.Response;
  */
 
 public class RecyclerViewFragment extends Fragment {
+    private MainActivity activity;
 
     private static final String ARG_TAB_TITLE = "tabTitle";
 
@@ -54,8 +60,12 @@ public class RecyclerViewFragment extends Fragment {
     public RecyclerView.Adapter getMAdapter() {
         return mAdapter;
     }
+    public RecyclerView getMRecyclerView() {
+        return mRecyclerView;
+    }
 
     private RecyclerView.Adapter mAdapter = null;
+    private MaterialViewPager mViewPager = null;
     private SchoolsAdapter schoolsAdapter = null;
     private CoursesAdapter coursesAdapter = null;
     private AlphaInAnimationAdapter alphaInAnimationAdapter = null;
@@ -92,10 +102,13 @@ public class RecyclerViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorLayout);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManagerWithSmoothScroller(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+        mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
+
+        activity = (MainActivity) getActivity();
 
         switch (tabTitle) {
             case "Explore":
@@ -228,7 +241,7 @@ public class RecyclerViewFragment extends Fragment {
 
     public void createSchoolsAdapter(List<School> schoolList) {
         schoolsAdapter = new SchoolsAdapter(this, schoolList);
-        mAdapter = new RecyclerViewMaterialAdapter(schoolsAdapter);
+        mAdapter = schoolsAdapter; //new RecyclerViewMaterialAdapter(schoolsAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
         alphaInAnimationAdapter.setFirstOnly(false);
@@ -246,7 +259,7 @@ public class RecyclerViewFragment extends Fragment {
 
     public void createCoursesAdapter(String department, List<Course> courseList) {
         coursesAdapter = new CoursesAdapter(this, department, courseList);
-        mAdapter = new RecyclerViewMaterialAdapter(coursesAdapter);
+        mAdapter = coursesAdapter; //new RecyclerViewMaterialAdapter(coursesAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
         alphaInAnimationAdapter.setFirstOnly(false);
