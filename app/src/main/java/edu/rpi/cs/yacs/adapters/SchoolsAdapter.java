@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 
 import com.truizlop.sectionedrecyclerview.SimpleSectionedAdapter;
 
-import java.util.List;
-
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.core.YACSApplication;
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
@@ -16,6 +14,8 @@ import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 import edu.rpi.cs.yacs.models.Department;
 import edu.rpi.cs.yacs.models.School;
 import edu.rpi.cs.yacs.viewholders.SchoolItemViewHolder;
+
+import java.util.List;
 
 /**
  * Created by Mark Robinson on 10/15/16.

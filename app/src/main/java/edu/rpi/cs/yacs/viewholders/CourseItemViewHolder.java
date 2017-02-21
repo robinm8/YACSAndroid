@@ -6,13 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
 import at.blogc.android.views.ExpandableTextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.models.Section;
+
+import java.util.List;
+
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**

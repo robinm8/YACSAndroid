@@ -5,14 +5,15 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 
-import java.util.ArrayList;
-
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.retrofit.ServiceHelper;
+
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+
+import java.util.ArrayList;
 
 /**
  * Created by Mark Robinson on 10/4/16.

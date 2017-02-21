@@ -2,13 +2,14 @@ package edu.rpi.cs.yacs.viewholders;
 
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import edu.rpi.cs.yacs.R;
+
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**

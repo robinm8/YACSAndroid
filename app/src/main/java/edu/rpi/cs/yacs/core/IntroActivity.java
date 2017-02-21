@@ -11,10 +11,10 @@ import android.support.v4.app.Fragment;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
-import java.io.Serializable;
-
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.slides.SelectHomeSlide;
+
+import java.io.Serializable;
 
 /**
  * Created by Mark Robinson on 9/24/16.

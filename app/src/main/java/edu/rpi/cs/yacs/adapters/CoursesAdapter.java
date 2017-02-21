@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.models.Sections;
 import edu.rpi.cs.yacs.viewholders.CourseItemViewHolder;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

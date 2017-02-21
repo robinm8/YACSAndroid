@@ -1,12 +1,10 @@
 package edu.rpi.cs.yacs.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,32 +12,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 
-import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.adapters.CoursesAdapter;
 import edu.rpi.cs.yacs.adapters.SchoolsAdapter;
-import edu.rpi.cs.yacs.core.MainActivity;
 import edu.rpi.cs.yacs.core.YACSApplication;
 import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.models.Courses;
 import edu.rpi.cs.yacs.models.School;
 import edu.rpi.cs.yacs.models.Schools;
-import edu.rpi.cs.yacs.models.Section;
 import edu.rpi.cs.yacs.models.Sections;
 import edu.rpi.cs.yacs.retrofit.YACSService;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
 import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,11 +45,10 @@ import retrofit2.Response;
  */
 
 public class RecyclerViewFragment extends Fragment {
-    private MainActivity activity;
 
     private static final String ARG_TAB_TITLE = "tabTitle";
 
-    CoordinatorLayout coordinatorLayout = null;
+    private CoordinatorLayout coordinatorLayout = null;
 
     private RecyclerView mRecyclerView;
 
@@ -65,9 +60,6 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     private RecyclerView.Adapter mAdapter = null;
-    private MaterialViewPager mViewPager = null;
-    private SchoolsAdapter schoolsAdapter = null;
-    private CoursesAdapter coursesAdapter = null;
     private AlphaInAnimationAdapter alphaInAnimationAdapter = null;
     private ScaleInAnimationAdapter scaleInAnimationAdapter = null;
     private String tabTitle;
@@ -108,8 +100,6 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView.setItemAnimator(new SlideInUpAnimator());
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
 
-        activity = (MainActivity) getActivity();
-
         switch (tabTitle) {
             case "Explore":
                 populateSchoolsAdapter();
@@ -125,7 +115,7 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
 
-    public void populateSchoolsAdapter() {
+    private void populateSchoolsAdapter() {
         Call<Schools> schoolCall = webService.loadSchools();
 
         schoolCall.enqueue(new Callback<Schools>() {
@@ -148,7 +138,7 @@ public class RecyclerViewFragment extends Fragment {
                         Log.d("Retrofit Call Error", errorBody.string());
                     } catch (IOException ignored) {}
 
-                    createFailedSnackbar();
+                    createFailedSnackBar();
                 }
 
                 createSchoolsAdapter(schoolList);
@@ -161,7 +151,7 @@ public class RecyclerViewFragment extends Fragment {
                 List<School> list = new ArrayList<>();
                 createSchoolsAdapter(list);
 
-                createFailedSnackbar();
+                createFailedSnackBar();
             }
         });
     }
@@ -189,7 +179,7 @@ public class RecyclerViewFragment extends Fragment {
                         Log.d("Retrofit Call Error", errorBody.string());
                     } catch (IOException ignored) {}
 
-                    createFailedSnackbar();
+                    createFailedSnackBar();
                 }
 
                 createCoursesAdapter(department, courseList);
@@ -202,7 +192,7 @@ public class RecyclerViewFragment extends Fragment {
                 List<Course> list = new ArrayList<>();
                 createCoursesAdapter(department, list);
 
-                createFailedSnackbar();
+                createFailedSnackBar();
             }
         });
     }
@@ -239,9 +229,8 @@ public class RecyclerViewFragment extends Fragment {
         });
     }
 
-    public void createSchoolsAdapter(List<School> schoolList) {
-        schoolsAdapter = new SchoolsAdapter(this, schoolList);
-        mAdapter = schoolsAdapter; //new RecyclerViewMaterialAdapter(schoolsAdapter);
+    private void createSchoolsAdapter(List<School> schoolList) {
+        mAdapter = new SchoolsAdapter(this, schoolList); //new RecyclerViewMaterialAdapter(schoolsAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
         alphaInAnimationAdapter.setFirstOnly(false);
@@ -257,9 +246,8 @@ public class RecyclerViewFragment extends Fragment {
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
     }
 
-    public void createCoursesAdapter(String department, List<Course> courseList) {
-        coursesAdapter = new CoursesAdapter(this, department, courseList);
-        mAdapter = coursesAdapter; //new RecyclerViewMaterialAdapter(coursesAdapter);
+    private void createCoursesAdapter(String department, List<Course> courseList) {
+        mAdapter = new CoursesAdapter(this, department, courseList); //new RecyclerViewMaterialAdapter(coursesAdapter);
 
         alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
         alphaInAnimationAdapter.setFirstOnly(false);
@@ -275,7 +263,7 @@ public class RecyclerViewFragment extends Fragment {
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
     }
 
-    public void createFailedSnackbar() {
+    private void createFailedSnackBar() {
         Snackbar snackbar = Snackbar
                 .make(coordinatorLayout, "Connection timed out.", Snackbar.LENGTH_INDEFINITE)
                 .setAction("RETRY", new View.OnClickListener() {

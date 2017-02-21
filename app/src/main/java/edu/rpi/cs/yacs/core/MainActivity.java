@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.mikepenz.aboutlibraries.Libs;
@@ -22,8 +25,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;

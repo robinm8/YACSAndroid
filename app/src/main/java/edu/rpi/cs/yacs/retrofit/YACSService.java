@@ -3,6 +3,7 @@ package edu.rpi.cs.yacs.retrofit;
 import edu.rpi.cs.yacs.models.Courses;
 import edu.rpi.cs.yacs.models.Schools;
 import edu.rpi.cs.yacs.models.Sections;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
