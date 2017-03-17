@@ -21,7 +21,7 @@
             android:layout_height="16dp"
             android:layout_weight=".50"
             android:textColor="@color/md_black_1000"
-            tools:text="CSCI 1100"
+            tools:text="CSCI 1010"
             android:textSize="12sp"
             android:gravity="center"
             android:typeface="monospace"
@@ -54,7 +54,7 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
+        android:paddingTop="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         tools:text="Computer programming is a way of thinking. A successful programmer needs to take a word problem, generate a pseudocode algorithm, and convert it to the syntax of a specific programming language. This course is an alternative to CSCI 1100 and is intended for students who want an introduction to this programming process but do not intend to do further course work in programming or computer science. Emphasis will be on the generation of the algorithms. Rather than using the complex syntax of a production language such as C or C++, this course will use Visual Basic. This allows concentration on the fundamentals and without becoming sidetracked by language complexity. It also affords students a tool for creating useful personal applications or prototypes in the future. Students cannot get credit for this course if they have already taken any other CSCI course.When Offered: Fall and spring terms annually.Credit Hours: 4"
@@ -62,7 +62,7 @@
         android:textSize="14sp"
         android:fontFamily="sans-serif-condensed"
         android:textAlignment="center"
-        android:maxLines="5"
+        android:maxLines="6"
         android:ellipsize="end"
         app:animation_duration="1000"
         android:textColor="@color/md_black_1000" />
@@ -71,14 +71,17 @@
         android:id="@+id/sectionsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
+        android:paddingTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <Button
-        android:id="@+id/button_toggle"
+    <ImageButton
+        android:id="@+id/toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/expand"
-        android:textColor="@color/md_black_1000" />
+        android:padding="4dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/asl_checkable_expandcollapse" />
 
 </LinearLayout>
