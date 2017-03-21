@@ -6,7 +6,7 @@
   <target android:name="chevron">
     <aapt:attr name="android:animation">
       <objectAnimator
-        android:duration="250"
+        android:duration="500"
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:propertyName="translateY"
         android:valueFrom="15"
@@ -17,7 +17,7 @@
   <target android:name="leftBar">
     <aapt:attr name="android:animation">
       <objectAnimator
-        android:duration="200"
+        android:duration="400"
         android:interpolator="@anim/pathmorph_expandcollapse"
         android:propertyName="rotation"
         android:valueFrom="135"
@@ -29,7 +29,7 @@
   <target android:name="rightBar">
     <aapt:attr name="android:animation">
       <objectAnimator
-        android:duration="200"
+        android:duration="400"
         android:interpolator="@anim/pathmorph_expandcollapse"
         android:propertyName="rotation"
         android:valueFrom="45"
