@@ -9,11 +9,14 @@
     android:paddingBottom="5dp"
     android:focusable="true"
     android:layout_marginBottom="1dp"
-    android:clickable="true">
+    android:clickable="true"
+    android:foreground="@drawable/selectable_item_background"
+    android:clipChildren="false" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent" >
 
         <TextView
             android:id="@+id/code"
@@ -45,34 +48,36 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_gravity="center"
-        android:background="?android:selectableItemBackground"
         android:gravity="center"
         android:textStyle="bold"
-        tools:text="Introduction to Computer Programming" />
+        tools:text="Introduction to Computer Programming"
+        android:background="@android:color/transparent" />
 
     <at.blogc.android.views.ExpandableTextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingTop="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         tools:text="Computer programming is a way of thinking. A successful programmer needs to take a word problem, generate a pseudocode algorithm, and convert it to the syntax of a specific programming language. This course is an alternative to CSCI 1100 and is intended for students who want an introduction to this programming process but do not intend to do further course work in programming or computer science. Emphasis will be on the generation of the algorithms. Rather than using the complex syntax of a production language such as C or C++, this course will use Visual Basic. This allows concentration on the fundamentals and without becoming sidetracked by language complexity. It also affords students a tool for creating useful personal applications or prototypes in the future. Students cannot get credit for this course if they have already taken any other CSCI course.When Offered: Fall and spring terms annually.Credit Hours: 4"
-        android:background="?android:selectableItemBackground"
         android:textSize="14sp"
         android:fontFamily="sans-serif-condensed"
-        android:textAlignment="center"
         android:maxLines="6"
         android:ellipsize="end"
         app:animation_duration="1000"
-        android:textColor="@color/md_black_1000" />
+        android:textColor="@color/md_black_1000"
+        android:foreground="@drawable/selectable_item_background"
+        android:background="@android:color/transparent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sectionsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@android:color/transparent" />
 
     <ImageButton
         android:id="@+id/toggle"
