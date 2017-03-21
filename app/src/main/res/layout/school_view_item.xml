@@ -7,6 +7,7 @@
     android:focusable="true"
     android:layout_marginBottom="1dp"
     android:clickable="true"
+    android:foreground="@drawable/selectable_item_background"
     android:background="#ECEFF1" >
 
     <TextView
@@ -28,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:text="Science and Technology Studies - Social Science"
-        android:background="?android:selectableItemBackground"
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:layout_alignParentEnd="true"
