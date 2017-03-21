@@ -13,10 +13,10 @@ import at.blogc.android.views.ExpandableTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import butterknife.OnClick;
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.models.Section;
 
-import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
@@ -44,9 +44,37 @@ public class CourseItemViewHolder extends AnimateViewHolder {
     @BindView(R.id.toggle)
     ImageButton toggleButton;
 
+    @OnClick({ R.id.code, R.id.credits, R.id.description, R.id.name, R.id.toggle })
+    void toggleAction() {
+        if (descriptionView.isExpanded()) {
+            recyclerView.setEnabled(false);
+            descriptionView.collapse();
+
+            final int[] stateSet = {android.R.attr.state_checked * (-1)};
+            toggleButton.setImageState(stateSet, true);
+        } else {
+            descriptionView.expand();
+            recyclerView.setEnabled(true);
+
+            final int[] stateSet = {android.R.attr.state_checked};
+            toggleButton.setImageState(stateSet, true);
+        }
+    }
+
     public CourseItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+    }
+
+    public void render(String name, String code, String credits, String description, List<Section> sections) {
+        nameView.setText(name);
+        codeView.setText(code);
+        creditsView.setText(credits);
+
+        descriptionView.setText(description);
+        descriptionView.setInterpolator(new OvershootInterpolator());
+
+        recyclerView.setEnabled(false);
     }
 
     @Override
@@ -73,42 +101,5 @@ public class CourseItemViewHolder extends AnimateViewHolder {
                 .setDuration(400)
                 .setListener(listener)
                 .start();
-    }
-
-    public void render(String name, String code, String credits, String description, List<Section> sections) {
-        nameView.setText(name);
-        codeView.setText(code);
-        creditsView.setText(credits);
-        descriptionView.setText(description);
-        descriptionView.setInterpolator(new OvershootInterpolator());
-        descriptionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleAction();
-            }
-        });
-
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleAction();
-            }
-        });
-    }
-
-    private void toggleAction() {
-        if (descriptionView.isExpanded()) {
-            recyclerView.setEnabled(false);
-            descriptionView.collapse();
-
-            final int[] stateSet = {android.R.attr.state_checked * (-1)};
-            toggleButton.setImageState(stateSet, true);
-        } else {
-            descriptionView.expand();
-            recyclerView.setEnabled(true);
-
-            final int[] stateSet = {android.R.attr.state_checked};
-            toggleButton.setImageState(stateSet, true);
-        }
     }
 }
