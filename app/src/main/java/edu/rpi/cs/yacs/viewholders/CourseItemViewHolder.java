@@ -46,6 +46,8 @@ public class CourseItemViewHolder extends AnimateViewHolder {
 
     @OnClick({ R.id.code, R.id.credits, R.id.description, R.id.name, R.id.toggle })
     void toggleAction() {
+        pressRunnable.run();
+
         if (descriptionView.isExpanded()) {
             recyclerView.setEnabled(false);
             descriptionView.collapse();
@@ -76,6 +78,21 @@ public class CourseItemViewHolder extends AnimateViewHolder {
 
         recyclerView.setEnabled(false);
     }
+
+    private Runnable pressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            descriptionView.setPressed(true);
+            descriptionView.postOnAnimationDelayed(unpressRunnable, 20);
+        }
+    };
+
+    private Runnable unpressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            descriptionView.setPressed(false);
+        }
+    };
 
     @Override
     public void animateRemoveImpl(ViewPropertyAnimatorListener listener) {
