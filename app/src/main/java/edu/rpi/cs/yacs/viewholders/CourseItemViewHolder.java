@@ -73,6 +73,10 @@ public class CourseItemViewHolder extends AnimateViewHolder {
         codeView.setText(code);
         creditsView.setText(credits);
 
+        description = description.replaceAll("(?<=\\p{Ll})\\.(?=\\p{Lu})", ".\n\n");
+        description = description.replaceAll("([\\p{L}\\d])\\.(\\p{Lu})", "$1.\n\n$2");
+        description = description.replaceAll("([\\d])(\\p{Lu})", "$1 | $2");
+
         descriptionView.setText(description);
         descriptionView.setInterpolator(new OvershootInterpolator());
 
