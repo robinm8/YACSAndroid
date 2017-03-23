@@ -29,16 +29,16 @@ public class ServiceHelper {
 
     /**
      * This method is used when we need to invalidate the YACSService
-     * @return new YACSService that uses the latest "House of YACS" setting
+     * @return new YACSService that uses the latest "College" setting
      */
     public YACSService invalidateService() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         // If exists, set to String value
         // Otherwise, set to "unknown"
-        String houseOfYACS = preferences.getString("House of YACS", "unknown");
+        String college = preferences.getString("College", "unknown");
 
-        String baseUrl = convertHouseToURL(houseOfYACS);
+        String baseUrl = convertCollegeToURL(college);
 
         Log.d("Persistent BaseUrl", baseUrl);
 
@@ -57,7 +57,7 @@ public class ServiceHelper {
      * @param college name of college
      * @return College YACS URL if College supports YACS, return RPI's YACS URL otherwise
      */
-    private String convertHouseToURL(String college) {
+    private String convertCollegeToURL(String college) {
         switch (college) {
             case "Rensselaer Polytechnic Institute":
                 return "https://yacs.cs.rpi.edu/api/v5/";
