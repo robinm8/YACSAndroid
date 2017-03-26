@@ -63,6 +63,8 @@ public class RecyclerViewFragment extends Fragment {
     private AlphaInAnimationAdapter alphaInAnimationAdapter = null;
     private ScaleInAnimationAdapter scaleInAnimationAdapter = null;
     private String tabTitle;
+
+    private List<Course> courseList = null;
     private YACSService webService = null;
 
     public static RecyclerViewFragment newInstance(String tabTitle) {
@@ -106,8 +108,6 @@ public class RecyclerViewFragment extends Fragment {
 
                 break;
             case "Schedule":
-                //TODO: create schedule adapter
-
                 List<School> list = new ArrayList<>();
                 createSchoolsAdapter(list);
 
@@ -115,7 +115,7 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
 
-    private void populateSchoolsAdapter() {
+    public void populateSchoolsAdapter() {
         Call<Schools> schoolCall = webService.loadSchools();
 
         schoolCall.enqueue(new Callback<Schools>() {
@@ -162,8 +162,6 @@ public class RecyclerViewFragment extends Fragment {
         coursesCall.enqueue(new Callback<Courses>() {
             @Override
             public void onResponse(Call<Courses> call, Response<Courses> response) {
-                List<Course> courseList = null;
-
                 if (response.isSuccessful()) {
                     Courses courses = response.body();
 
@@ -240,7 +238,7 @@ public class RecyclerViewFragment extends Fragment {
         scaleInAnimationAdapter.setFirstOnly(false);
         scaleInAnimationAdapter.setInterpolator(new OvershootInterpolator());
 
-        mRecyclerView.setAdapter(scaleInAnimationAdapter);
+        mRecyclerView.swapAdapter(scaleInAnimationAdapter, true);
 
         mAdapter.notifyDataSetChanged();
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView);
@@ -279,5 +277,9 @@ public class RecyclerViewFragment extends Fragment {
                 });
 
         snackbar.show();
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
     }
 }
