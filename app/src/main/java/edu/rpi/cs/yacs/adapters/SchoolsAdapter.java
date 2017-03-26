@@ -80,17 +80,13 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder>
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
-
-//                        Expected behavior: animate to top, clear list, animate remove all items, load department courses
-                        Log.d("recyclerview", "scrolling");
+//                      Expected behavior: animate to top, clear list, animate remove all items, load department courses
 
                         recyclerViewFragment.getMRecyclerView().smoothScrollToPosition(0);
 
                         v.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("recyclerview", "removing");
 
                                 int count = getItemCount();
 
@@ -104,8 +100,6 @@ public class SchoolsAdapter extends SimpleSectionedAdapter<SchoolItemViewHolder>
                         v.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("recyclerview", "populating");
-
                                 recyclerViewFragment.populateCoursesAdapter(department.getCode());
 
                                 YACSApplication.getInstance().setRecyclerViewMode(RecyclerViewMode.COURSES);
