@@ -3,6 +3,8 @@ package edu.rpi.cs.yacs.core;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import butterknife.BindView;
@@ -27,6 +30,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
+import edu.rpi.cs.yacs.enums.ViewPagerMode;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 
 /**
@@ -37,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Drawer mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Toolbar toolbar;
+    private RecyclerViewFragment exploreFragment = null;
+    private RecyclerViewFragment scheduleFragment = null;
+
+    private boolean backButtonDebounce = false;
 
     @BindView(R.id.materialViewPager)
     MaterialViewPager mViewPager;
@@ -55,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
 
-        toolbar = mViewPager.getToolbar();
+        Toolbar toolbar = mViewPager.getToolbar();
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -113,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .intent(MainActivity.this);
                             } else if (drawerItem.getIdentifier() == 3) {
-//                                 TODO: Make Feedback Dialog
+                                 // Make Feedback Dialog
                             }
                             if (intent != null) {
                                 startActivity(intent);
@@ -133,11 +140,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 String title = String.valueOf(getPageTitle(position));
+
                 switch (position % 2) {
                     case 0:
-                        return RecyclerViewFragment.newInstance(title);
+                        exploreFragment = RecyclerViewFragment.newInstance(title);
+                        return exploreFragment;
                     case 1:
-                        return RecyclerViewFragment.newInstance(title);
+                        scheduleFragment = RecyclerViewFragment.newInstance(title);
+                        return scheduleFragment;
                     default:
                         return RecyclerViewFragment.newInstance("");
                 }
@@ -152,10 +162,11 @@ public class MainActivity extends AppCompatActivity {
             public CharSequence getPageTitle(int position) {
                 switch (position % 2) {
                     case 0:
-                        return "Explore";
+                        return ViewPagerMode.EXPLORE;
                     case 1:
-                        return "Schedule";
+                        return ViewPagerMode.SCHEDULE;
                 }
+
                 return "";
             }
         });
@@ -190,12 +201,50 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mDrawer != null && mDrawer.isDrawerOpen()) {
-            mDrawer.closeDrawer();
-        } else if (YACSApplication.getInstance().getRecyclerViewMode() == RecyclerViewMode.COURSES) {
-            // TODO: On back pressed, clear Main RecylcerView and load schools
-        } else {
-            super.onBackPressed();
+        if (!backButtonDebounce) {
+            backButtonDebounce = true;
+
+            if (mDrawer != null && mDrawer.isDrawerOpen()) {
+                mDrawer.closeDrawer();
+
+                backButtonDebounce = false;
+            } else if (mViewPager.getViewPager().getCurrentItem() == 1) {
+                mViewPager.getViewPager().setCurrentItem(0);
+
+                backButtonDebounce = false;
+            } else if (mViewPager.getViewPager().getCurrentItem() == 0) {
+                if (YACSApplication.getInstance().getRecyclerViewMode() == RecyclerViewMode.COURSES) {
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            exploreFragment.getMRecyclerView().smoothScrollToPosition(0);
+
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                public void run() {
+                                    int count = exploreFragment.getCourseList().size();
+
+                                    exploreFragment.getCourseList().clear();
+                                    exploreFragment.getMAdapter().notifyItemRangeRemoved(0, count);
+                                }
+                            }, 600);
+
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                public void run() {
+                                    exploreFragment.populateSchoolsAdapter();
+
+                                    YACSApplication.getInstance().setRecyclerViewMode(RecyclerViewMode.DEPARTMENTS);
+
+                                    backButtonDebounce = false;
+                                }
+                            }, 1250);
+                        }
+                    }, 500);
+                } else {
+                    super.onBackPressed();
+                }
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 }
