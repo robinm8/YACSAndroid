@@ -7,6 +7,7 @@ import com.squareup.leakcanary.LeakCanary;
 
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.models.Course;
+import edu.rpi.cs.yacs.models.Section;
 import edu.rpi.cs.yacs.retrofit.ServiceHelper;
 
 import io.fabric.sdk.android.Fabric;
@@ -25,6 +26,7 @@ public class YACSApplication extends Application {
     private Realm realm = null;
     private RecyclerViewMode recyclerViewMode = RecyclerViewMode.DEPARTMENTS;
     private ArrayList<Course> selectedCourses = new ArrayList<>();
+    private ArrayList<Section> selectedSections = new ArrayList<>();
 
     public static YACSApplication getInstance() {
         return instance;
@@ -47,7 +49,8 @@ public class YACSApplication extends Application {
 
         serviceHelper = new ServiceHelper(getApplicationContext());
 
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
         realm = Realm.getDefaultInstance();
@@ -71,5 +74,9 @@ public class YACSApplication extends Application {
 
     public ArrayList<Course> getSelectedCourses() {
         return selectedCourses;
+    }
+
+    public ArrayList<Section> getSelectedSections() {
+        return selectedSections;
     }
 }
