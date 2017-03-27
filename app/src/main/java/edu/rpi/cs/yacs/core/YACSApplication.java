@@ -5,6 +5,7 @@ import android.app.Application;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 
+import edu.rpi.cs.yacs.BuildConfig;
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.models.Section;
@@ -41,7 +42,9 @@ public class YACSApplication extends Application {
             return;
         }
 
-        Fabric.with(this, new Crashlytics());
+        if (BuildConfig.USE_CRASHLYTICS) {
+            Fabric.with(this, new Crashlytics());
+        }
 
         instance = this;
 

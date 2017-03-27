@@ -1,9 +1,11 @@
 language: android
 jdk: oraclejdk8
+os:
+  - linux
 install: true
 env:
   global:
-    - ANDROID_TARGET=android-16
+    - ANDROID_TARGET=android-21
     - ANDROID_ABI=armeabi-v7a
     - CODECOV_TOKEN=0f9dd499-2544-4ca6-a9a1-b297f54913e9
 android:
@@ -12,15 +14,13 @@ android:
   - platform-tools
   - build-tools-25.0.2
   - android-25
-  - extra-android-support
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
-
 before_script:
   - chmod +x gradlew
   - chmod +x gradlew.bat
 script:
-  - ./gradlew build jacocoTestReport assembleAndroidTest
+  - ./gradlew build jacocoTestReport assembleDebug
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
@@ -28,4 +28,5 @@ script:
   - ./gradlew connectedCheck
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-
+before_install:
+  - openssl aes-256-cbc -K $encrypted_fab984b79ab0_key -iv $encrypted_fab984b79ab0_iv -in app/build.gradle.enc -out app/build.gradle -d
