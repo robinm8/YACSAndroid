@@ -1,5 +1,6 @@
 language: android
 jdk: oraclejdk8
+sudo: false
 os:
   - linux
 install: true
@@ -18,14 +19,19 @@ android:
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 before_script:
   - chmod +x gradlew
-  - chmod +x gradlew.bat
 script:
-  - ./gradlew build jacocoTestReport assembleDebug
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v &
+  - sleep 28
+  - adb shell input keyevent 82
   - ./gradlew connectedCheck
+after_script:
+  - adb logcat -d
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_install:
