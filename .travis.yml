@@ -8,7 +8,9 @@ env:
   global:
     - ANDROID_TARGET=android-21
     - ANDROID_ABI=armeabi-v7a
-    - CODECOV_TOKEN=0f9dd499-2544-4ca6-a9a1-b297f54913e9
+addons:
+  code_climate:
+    repo_token: 32ba45184abb5d0b55b3355892f40c3d90f14ba733a8f4526ad436e9f38543cc
 android:
   components:
   - tools
