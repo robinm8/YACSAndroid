@@ -56,10 +56,11 @@ public class CourseItemViewHolder extends AnimateViewHolder {
             toggleButton.setImageState(stateSet, true);
         } else {
             descriptionView.expand();
-            recyclerView.setEnabled(true);
 
             final int[] stateSet = {android.R.attr.state_checked};
             toggleButton.setImageState(stateSet, true);
+
+            recyclerView.setEnabled(true);
         }
     }
 
