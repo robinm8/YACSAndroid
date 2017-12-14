@@ -6,11 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
-public class School {
+public class School extends RealmObject {
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -21,7 +26,7 @@ public class School {
 
     @SerializedName("departments")
     @Expose
-    private List<Department> departments = new ArrayList<>();
+    private RealmList<Department> departments = new RealmList<>();
 
     /**
      * @return The id
@@ -54,14 +59,14 @@ public class School {
     /**
      * @return The departments
      */
-    public List<Department> getDepartments() {
+    public RealmList<Department> getDepartments() {
         return departments;
     }
 
     /**
      * @param departments The departments
      */
-    public void setDepartments(List<Department> departments) {
+    public void setDepartments(RealmList<Department> departments) {
         this.departments = departments;
     }
 }

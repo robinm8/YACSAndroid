@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import net.alhazmy13.catcho.library.Catcho;
+
 import edu.rpi.cs.yacs.R;
 
 /**
@@ -40,7 +42,7 @@ public class SettingsActivity extends PreferenceActivity {
                                 return true;
                             }
                         })
-                        .positiveText(R.string.Select)
+                        .positiveText(R.string.select)
                         .show();
             }
 
@@ -50,6 +52,10 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            Catcho.Builder(getActivity())
+                    .recipients("mark@codecornerapps.com")
+                    .build();
 
             addPreferencesFromResource(R.xml.prefs);
 

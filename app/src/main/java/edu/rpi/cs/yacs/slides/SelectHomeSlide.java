@@ -79,7 +79,7 @@ public final class SelectHomeSlide extends Fragment implements ISlidePolicy {
                         return true;
                     }
                 })
-                .positiveText(R.string.Select)
+                .positiveText(R.string.select)
                 .show();
     }
 }

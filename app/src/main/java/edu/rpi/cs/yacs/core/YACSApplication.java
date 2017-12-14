@@ -11,9 +11,11 @@ import edu.rpi.cs.yacs.models.Course;
 import edu.rpi.cs.yacs.models.Section;
 import edu.rpi.cs.yacs.retrofit.ServiceHelper;
 
+import edu.rpi.cs.yacs.share.ShareHelper;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 
 import java.util.ArrayList;
 
@@ -24,10 +26,12 @@ public class YACSApplication extends Application {
     private static YACSApplication instance;
 
     private ServiceHelper serviceHelper = null;
-    private Realm realm = null;
+    private ShareHelper shareHelper = null;
     private RecyclerViewMode recyclerViewMode = RecyclerViewMode.DEPARTMENTS;
-    private ArrayList<Course> selectedCourses = new ArrayList<>();
-    private ArrayList<Section> selectedSections = new ArrayList<>();
+
+    private Realm realm = null;
+    private RealmList<Course> starredCourses = new RealmList<>();
+    private RealmList<Section> selectedSections = new RealmList<>();
 
     public static YACSApplication getInstance() {
         return instance;
@@ -51,16 +55,22 @@ public class YACSApplication extends Application {
         LeakCanary.install(this);
 
         serviceHelper = new ServiceHelper(getApplicationContext());
+        shareHelper = new ShareHelper();
 
         Realm.init(this);
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .schemaVersion(0)
+                .build();
 
-        realm = Realm.getDefaultInstance();
+        realm = Realm.getInstance(realmConfiguration);
     }
 
     public ServiceHelper getServiceHelper() {
         return serviceHelper;
+    }
+
+    public ShareHelper getShareHelper() {
+        return shareHelper;
     }
 
     public Realm getRealm() {
@@ -75,11 +85,57 @@ public class YACSApplication extends Application {
         this.recyclerViewMode = recyclerViewMode;
     }
 
-    public ArrayList<Course> getSelectedCourses() {
-        return selectedCourses;
+//    public boolean starCourse(Course course) {
+//        boolean rc = starredCourses.add(course);
+//
+//        realm.beginTransaction();
+//        realm.copyToRealmOrUpdate(starredCourses);
+//        realm.commitTransaction();
+//
+//        return rc;
+//    }
+//
+//    public boolean unstarCourse(Course course) {
+//        boolean rc = starredCourses.remove(course);
+//
+//        realm.beginTransaction();
+//        realm.copyToRealmOrUpdate(starredCourses);
+//        realm.commitTransaction();
+//
+//        return rc;
+//    }
+//
+//    public RealmList<Course> getStarredCourses() {
+//        return starredCourses;
+//    }
+
+    public RealmList<Section> getSelectedSections() {
+        return selectedSections;
     }
 
-    public ArrayList<Section> getSelectedSections() {
-        return selectedSections;
+    public void addSection(Section s) {
+//        try(Realm realmInstance = Realm.getDefaultInstance()) {
+//            realmInstance.executeTransaction((realm) -> realm.insertOrUpdate(s));
+//        }
+
+        selectedSections.add(s);
+    }
+
+    public void removeSection(Section s) {
+//        try(Realm realmInstance = Realm.getDefaultInstance()) {
+//            realmInstance.executeTransaction((realm) -> selectedSections.remove(s));
+//        }
+
+        selectedSections.remove(s);
+    }
+
+    public boolean isSectionSelected(Section section) {
+        for (Section other : selectedSections) {
+            if (other.getId().equals(section.getId()) && other.getCrn().equals(section.getCrn())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

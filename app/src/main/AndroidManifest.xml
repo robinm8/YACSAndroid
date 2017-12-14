@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="edu.rpi.cs.yacs">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".core.YACSApplication"
@@ -17,8 +19,9 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:installLocation="preferExternal"
+        android:installLocation="auto"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".core.MainActivity"
             android:label="@string/app_name"
@@ -29,18 +32,26 @@
         <activity
             android:name=".core.SettingsActivity"
             android:label="@string/settings_activity_title"
-            android:theme="@style/AppTheme.SettingsActivity">
-        </activity>
+            android:theme="@style/AppTheme.SettingsActivity"/>
 
         <activity
             android:name=".core.IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".notification.BootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <meta-data android:name="android.max_aspect" android:value="2.1" />
     </application>
 </manifest>

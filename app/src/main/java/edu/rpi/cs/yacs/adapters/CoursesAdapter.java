@@ -1,16 +1,22 @@
 package edu.rpi.cs.yacs.adapters;
 
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.iconics.context.IconicsLayoutInflater2;
+
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
 import edu.rpi.cs.yacs.models.Course;
+import edu.rpi.cs.yacs.models.Section;
 import edu.rpi.cs.yacs.models.Sections;
 import edu.rpi.cs.yacs.viewholders.CourseItemViewHolder;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +44,7 @@ public class CoursesAdapter extends RecyclerView.Adapter<CourseItemViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.course_view_item, parent, false);
 
-        return new CourseItemViewHolder(view);
+        return new CourseItemViewHolder(view, recyclerViewFragment);
     }
 
     @Override
@@ -59,7 +65,11 @@ public class CoursesAdapter extends RecyclerView.Adapter<CourseItemViewHolder> {
                     description = "No description available";
                 }
 
-                holder.render(course.getName(), courseCode, credits, description, sections.getSections());
+                List<Section> sectionsList = sections.getSections();
+
+                Collections.reverse(sectionsList);
+
+                holder.render(course.getName(), courseCode, credits, description, sectionsList, recyclerViewFragment.getActivity());
             }
 
             @Override

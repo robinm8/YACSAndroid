@@ -6,11 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
-public class Section {
+public class Section extends RealmObject {
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -33,7 +38,7 @@ public class Section {
 
     @SerializedName("instructors")
     @Expose
-    private List<String> instructors = new ArrayList<>();
+    private RealmList<String> instructors = new RealmList<>();
 
     @SerializedName("num_periods")
     @Expose
@@ -45,7 +50,7 @@ public class Section {
 
     @SerializedName("periods")
     @Expose
-    private List<Period> periods = new ArrayList<>();
+    private RealmList<Period> periods = new RealmList<>();
 
     /**
      *
@@ -106,7 +111,7 @@ public class Section {
      * @return
      * The seats
      */
-    public Integer getSeats() {
+    public Integer getSeatsTotal() {
         return seats;
     }
 
@@ -151,7 +156,7 @@ public class Section {
      * @param instructors
      * The instructors
      */
-    public void setInstructors(List<String> instructors) {
+    public void setInstructors(RealmList<String> instructors) {
         this.instructors = instructors;
     }
 
@@ -205,7 +210,7 @@ public class Section {
      * @param periods
      * The periods
      */
-    public void setPeriods(List<Period> periods) {
+    public void setPeriods(RealmList<Period> periods) {
         this.periods = periods;
     }
 }

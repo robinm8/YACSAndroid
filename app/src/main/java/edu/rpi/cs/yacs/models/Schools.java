@@ -6,21 +6,24 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
 /**
  * Created by Mark Robinson on 10/12/16.
  */
 
-public class Schools {
+public class Schools extends RealmObject {
     @SerializedName("schools")
     @Expose
-    private List<School> schools = new ArrayList<>();
+    private RealmList<School> schools = new RealmList<>();
 
     /**
      *
      * @return
      * The schools
      */
-    public List<School> getSchools() {
+    public RealmList<School> getSchools() {
         return schools;
     }
 
@@ -29,7 +32,7 @@ public class Schools {
      * @param schools
      * The schools
      */
-    public void setSchools(List<School> schools) {
+    public void setSchools(RealmList<School> schools) {
         this.schools = schools;
     }
 }

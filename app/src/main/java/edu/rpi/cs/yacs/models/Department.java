@@ -7,7 +7,11 @@ package edu.rpi.cs.yacs.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Department {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Department extends RealmObject {
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
+    android:focusable="true"
+    android:layout_marginBottom="1dp"
+    android:clickable="true"
+    android:foreground="@drawable/selectable_item_background"
+    android:clipChildren="false" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent" >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight=".333"
+            android:textColor="@color/md_black_1000"
+            tools:text="##"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/seats"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight=".333"
+            android:textColor="@color/md_black_1000"
+            tools:text="###/### seats"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/crn"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight=".333"
+            android:textColor="@color/md_black_1000"
+            tools:text="#####"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/instructors"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        tools:text="Professors"
+        android:background="@android:color/transparent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="16dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/monday"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/tuesday"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/wednesday"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/thursday"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/friday"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        >
+
+        <TextView
+            android:id="@+id/monday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/dash"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tuesday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/dash"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/wednesday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/dash"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/thursday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/dash"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/friday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:textColor="@color/md_black_1000"
+            android:text="@string/dash"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    
+
+</LinearLayout>

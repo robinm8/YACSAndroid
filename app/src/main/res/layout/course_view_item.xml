@@ -30,6 +30,13 @@
             android:typeface="monospace"
             android:layout_gravity="center" />
 
+        <!--<com.mikepenz.iconics.view.IconicsImageView-->
+            <!--android:id="@+id/star"-->
+            <!--android:layout_width="16dp"-->
+            <!--android:layout_height="16dp"-->
+            <!--app:iiv_color="@android:color/black"-->
+            <!--app:iiv_icon="faw-star-o" />-->
+
         <TextView
             android:id="@+id/credits"
             android:layout_width="0dp"

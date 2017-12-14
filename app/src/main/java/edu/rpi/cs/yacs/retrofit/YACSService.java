@@ -1,12 +1,17 @@
 package edu.rpi.cs.yacs.retrofit;
 
+import java.util.List;
+import java.util.Map;
+
 import edu.rpi.cs.yacs.models.Courses;
+import edu.rpi.cs.yacs.models.Schedules;
 import edu.rpi.cs.yacs.models.Schools;
 import edu.rpi.cs.yacs.models.Sections;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by Mark Robinson on 9/24/16.
@@ -25,7 +30,7 @@ public interface YACSService {
      * @param search query string to search
      * @return Relevant Course objects of query
      */
-    @GET("courses.json")
+    @GET("courses.json?show_periods=true&show_sections=true")
     Call<Courses> loadCoursesBySearch(@Query("search") String search);
 
     /**
@@ -43,4 +48,13 @@ public interface YACSService {
      */
     @GET("sections.json?show_periods=true")
     Call<Sections> loadCourseSections(@Query("course_id") int course_id);
+
+    /**
+     * This method fetches all schedules of a given set of sections.
+     * @param section_ids section ids to fetch schedules and periods
+     * @return Relevant Schedule objects of this set of sections
+     */
+
+    @GET("schedules.json?show_periods=true")
+    Call<Schedules> loadSchedules(@Query("section_ids") String section_ids);
 }

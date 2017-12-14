@@ -4,4 +4,12 @@
         <item>Rensselaer Polytechnic Institute</item>
     </string-array>
 
+    <string-array name="sharables">
+        <item>Save Image</item>
+        <item>Share on Facebook</item>
+        <item>Copy YACS Link</item>
+        <item>Copy CRNs</item>
+        <item>More Sharing Options</item>
+    </string-array>
+
 </resources>

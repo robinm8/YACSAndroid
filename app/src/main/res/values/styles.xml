@@ -4,7 +4,7 @@
 
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
 
@@ -39,7 +39,7 @@
         <item name="material_drawer_hint_text">@color/material_drawer_dark_hint_text</item>
         <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
-        <item name="material_drawer_selected_text">@color/colorPrimaryDark</item>
+        <item name="material_drawer_selected_text">@color/colorPrimaryLight</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_dark_primary_text
         </item>

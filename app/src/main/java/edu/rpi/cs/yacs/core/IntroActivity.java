@@ -11,7 +11,10 @@ import android.support.v4.app.Fragment;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
+import net.alhazmy13.catcho.library.Catcho;
+
 import edu.rpi.cs.yacs.R;
+import edu.rpi.cs.yacs.slides.PermissionSlide;
 import edu.rpi.cs.yacs.slides.SelectHomeSlide;
 
 import java.io.Serializable;
@@ -28,18 +31,24 @@ public class IntroActivity extends AppIntro2 implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Catcho.Builder(this)
+                .recipients("mark@codecornerapps.com")
+                .build();
+
         selectHomeSlide = new SelectHomeSlide();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("activity", this);
 
+        showSkipButton(false);
+
         selectHomeSlide.setArguments(bundle);
 
-        askForPermissions(new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR}, 3);
+        askForPermissions(new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
 
-        addSlide(AppIntroFragment.newInstance("Welcome To YACS!", "Simple, Sane Course Scheduling \n\n( Coming Soon To Android! )", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
-        addSlide(AppIntroFragment.newInstance("YACS", "100% RPI home-grown and hosted \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
-        addSlide(AppIntroFragment.newInstance("Google Calendar", "Save your schedule \nOn Google Calendar", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
+        addSlide(AppIntroFragment.newInstance("Welcome To YACS Android!", "Simple, Sane Course Scheduling \n\n( Now On-The-Go! )", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
+        addSlide(AppIntroFragment.newInstance("YACS Android", "100% RPI home-grown \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
+        addSlide(PermissionSlide.newInstance("Your Calendar", "Save your schedule \nTo your favorite calendar", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String college = preferences.getString(getString(R.string.college), "unknown");
@@ -50,7 +59,7 @@ public class IntroActivity extends AppIntro2 implements Serializable {
             launchMain();
         }
 
-        addSlide(AppIntroFragment.newInstance("All Set!", "You're awesome, enjoy our app! \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
+        addSlide(AppIntroFragment.newInstance("All Set!", "You're awesome, enjoy! \n", R.mipmap.yacs_launcher, Color.parseColor("#ef5350")));
 
         setFlowAnimation();
         setSwipeLock(false);

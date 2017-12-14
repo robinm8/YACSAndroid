@@ -3,11 +3,13 @@ package edu.rpi.cs.yacs.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+
 /**
  * Created by Mark Robinson on 9/24/16.
  */
 
-public class Period {
+public class Period extends RealmObject {
     @SerializedName("type")
     @Expose
     private String type;

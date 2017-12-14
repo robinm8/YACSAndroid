@@ -55,11 +55,11 @@ public class ServiceHelper {
     /**
      * This method returns the YACS URL of the input college name.
      * @param college name of college
-     * @return College YACS URL if College supports YACS, return RPI's YACS URL otherwise
+     * @return College YACS URL if College supports YACS
      */
     private String convertCollegeToURL(String college) {
         switch (college) {
-            case "Rensselaer Polytechnic Institute":
+            case "Rensselaer Polytechnic Institute (Official)":
                 return "https://yacs.cs.rpi.edu/api/v5/";
             default :
                 return "https://yacs.cs.rpi.edu/api/v5/";

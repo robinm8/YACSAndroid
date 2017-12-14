@@ -1,7 +1,9 @@
 package edu.rpi.cs.yacs.core;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +14,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import butterknife.BindView;
@@ -23,15 +24,19 @@ import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.iconics.Iconics;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import net.alhazmy13.catcho.library.Catcho;
+
 import edu.rpi.cs.yacs.R;
 import edu.rpi.cs.yacs.enums.RecyclerViewMode;
 import edu.rpi.cs.yacs.enums.ViewPagerMode;
 import edu.rpi.cs.yacs.fragments.RecyclerViewFragment;
+import edu.rpi.cs.yacs.notification.BootReceiver;
 
 /**
  * Created by Mark Robinson on 9/23/16.
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Drawer mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
-    private RecyclerViewFragment exploreFragment = null;
+    private RecyclerViewFragment discoverFragment = null;
     private RecyclerViewFragment scheduleFragment = null;
 
     private boolean backButtonDebounce = false;
@@ -52,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Iconics.init(getApplicationContext());
+        Iconics.registerFont(new FontAwesome());
+
+        Catcho.Builder(this)
+                .recipients("mark@codecornerapps.com")
+                .build();
 
         setContentView(R.layout.activity_main);
         setTitle("");
@@ -119,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
                                         .withFields(R.string.class.getFields())
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .intent(MainActivity.this);
-                            } else if (drawerItem.getIdentifier() == 3) {
-                                 // Make Feedback Dialog
+//                            } else if (drawerItem.getIdentifier() == 3) {
+//                                 // Make Feedback Dialog
                             }
                             if (intent != null) {
                                 startActivity(intent);
@@ -143,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (position % 2) {
                     case 0:
-                        exploreFragment = RecyclerViewFragment.newInstance(title);
-                        return exploreFragment;
+                        discoverFragment = RecyclerViewFragment.newInstance(title);
+                        return discoverFragment;
                     case 1:
                         scheduleFragment = RecyclerViewFragment.newInstance(title);
                         return scheduleFragment;
@@ -177,11 +189,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (page) {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.primary,
+                                R.color.colorPrimaryDark,
                                 "");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.primary,
+                                R.color.colorPrimaryDark,
                                 "");
                 }
 
@@ -191,6 +203,20 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+        ComponentName receiver = new ComponentName(getApplicationContext(), BootReceiver.class);
+        PackageManager pm = getApplicationContext().getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+
+        receiver = new ComponentName(getApplicationContext(), BootReceiver.class);
+        pm = getApplicationContext().getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
     }
 
     @Override
@@ -217,26 +243,28 @@ public class MainActivity extends AppCompatActivity {
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            exploreFragment.getMRecyclerView().smoothScrollToPosition(0);
+                            if (discoverFragment != null && discoverFragment.getMRecyclerView() != null) {
+                                discoverFragment.getMRecyclerView().smoothScrollToPosition(0);
 
-                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                                public void run() {
-                                    int count = exploreFragment.getCourseList().size();
+                                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                    public void run() {
+                                        int count = discoverFragment.getCourseList().size();
 
-                                    exploreFragment.getCourseList().clear();
-                                    exploreFragment.getMAdapter().notifyItemRangeRemoved(0, count);
-                                }
-                            }, 600);
+                                        discoverFragment.getCourseList().clear();
+                                        discoverFragment.getMAdapter().notifyItemRangeRemoved(0, count);
+                                    }
+                                }, 600);
 
-                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                                public void run() {
-                                    exploreFragment.populateSchoolsAdapter();
+                                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                    public void run() {
+                                        discoverFragment.populateSchoolsAdapter();
 
-                                    YACSApplication.getInstance().setRecyclerViewMode(RecyclerViewMode.DEPARTMENTS);
+                                        YACSApplication.getInstance().setRecyclerViewMode(RecyclerViewMode.DEPARTMENTS);
 
-                                    backButtonDebounce = false;
-                                }
-                            }, 1250);
+                                        backButtonDebounce = false;
+                                    }
+                                }, 1250);
+                            }
                         }
                     }, 500);
                 } else {

@@ -5,10 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.RecyclerView
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:id="@+id/weekViewHolder"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <include layout="@layout/material_view_pager_placeholder"/>
+
+        <com.alamkanak.weekview.WeekView
+            android:id="@+id/weekView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:eventTextColor="@android:color/white"
+            app:textSize="12sp"
+            app:hourHeight="32dp"
+            app:headerColumnPadding="4dp"
+            app:headerColumnTextColor="#8f000000"
+            app:headerRowPadding="8dp"
+            app:columnGap="4dp"
+            app:noOfVisibleDays="5"
+            app:firstDayOfWeek="monday"
+            app:showFirstDayOfWeekFirst="true"
+            app:headerRowBackgroundColor="#ffefefef"
+            app:dayBackgroundColor="#05000000"
+            app:todayBackgroundColor="#05000000"
+            app:horizontalFlingEnabled="false"
+            app:verticalFlingEnabled="false"
+            app:headerColumnBackground="#ffffffff"
+            app:todayHeaderTextColor="#8f000000"
+            app:showNowLine="true"
+            app:nowLineColor="@color/secondaryDarkColor"
+            app:xScrollingSpeed="0" />
+    </LinearLayout>
+
+
 </android.support.design.widget.CoordinatorLayout>
